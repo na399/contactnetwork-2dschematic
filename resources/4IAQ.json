@@ -1,0 +1,2316 @@
+{
+  "aa_map": {
+    "4iaq": {
+      "38": "Y",
+      "40": "Y",
+      "41": "Q",
+      "42": "D",
+      "43": "S",
+      "44": "I",
+      "49": "K",
+      "52": "L",
+      "53": "V",
+      "56": "L",
+      "59": "I",
+      "60": "T",
+      "62": "A",
+      "63": "T",
+      "64": "T",
+      "66": "S",
+      "67": "N",
+      "68": "A",
+      "69": "F",
+      "70": "V",
+      "71": "I",
+      "73": "T",
+      "74": "V",
+      "75": "Y",
+      "79": "K",
+      "80": "L",
+      "81": "H",
+      "83": "P",
+      "84": "A",
+      "85": "N",
+      "86": "Y",
+      "87": "L",
+      "88": "I",
+      "89": "A",
+      "90": "S",
+      "91": "L",
+      "92": "A",
+      "93": "V",
+      "94": "T",
+      "95": "D",
+      "96": "L",
+      "97": "L",
+      "98": "V",
+      "99": "S",
+      "101": "L",
+      "102": "V",
+      "103": "M",
+      "104": "P",
+      "105": "I",
+      "106": "S",
+      "107": "T",
+      "109": "Y",
+      "110": "T",
+      "111": "V",
+      "112": "T",
+      "113": "G",
+      "114": "R",
+      "115": "W",
+      "117": "L",
+      "119": "Q",
+      "121": "V",
+      "122": "C",
+      "123": "D",
+      "125": "W",
+      "126": "L",
+      "127": "S",
+      "128": "S",
+      "129": "D",
+      "130": "I",
+      "131": "T",
+      "132": "C",
+      "133": "C",
+      "134": "T",
+      "135": "A",
+      "136": "S",
+      "137": "I",
+      "138": "W",
+      "139": "H",
+      "140": "L",
+      "141": "C",
+      "142": "V",
+      "143": "I",
+      "144": "A",
+      "145": "L",
+      "146": "D",
+      "147": "R",
+      "148": "Y",
+      "149": "W",
+      "150": "A",
+      "151": "I",
+      "157": "Y",
+      "160": "K",
+      "161": "R",
+      "162": "T",
+      "163": "P",
+      "165": "R",
+      "166": "A",
+      "169": "M",
+      "170": "I",
+      "173": "V",
+      "174": "W",
+      "176": "F",
+      "177": "S",
+      "178": "I",
+      "180": "I",
+      "181": "S",
+      "183": "P",
+      "184": "P",
+      "185": "F",
+      "186": "F",
+      "187": "W",
+      "190": "A",
+      "197": "S",
+      "198": "E",
+      "199": "C",
+      "200": "V",
+      "201": "V",
+      "202": "N",
+      "203": "T",
+      "205": "H",
+      "206": "I",
+      "208": "Y",
+      "209": "T",
+      "210": "V",
+      "211": "Y",
+      "212": "S",
+      "213": "T",
+      "214": "V",
+      "215": "G",
+      "216": "A",
+      "217": "F",
+      "218": "Y",
+      "219": "F",
+      "220": "P",
+      "221": "T",
+      "223": "L",
+      "224": "L",
+      "227": "L",
+      "228": "Y",
+      "230": "R",
+      "231": "I",
+      "234": "E",
+      "239": "I",
+      "312": "A",
+      "313": "T",
+      "315": "T",
+      "316": "L",
+      "317": "G",
+      "318": "I",
+      "319": "I",
+      "320": "L",
+      "322": "A",
+      "323": "F",
+      "324": "I",
+      "325": "V",
+      "326": "C",
+      "327": "W",
+      "328": "L",
+      "329": "P",
+      "330": "F",
+      "331": "F",
+      "332": "I",
+      "333": "I",
+      "334": "S",
+      "335": "L",
+      "337": "M",
+      "338": "P",
+      "347": "H",
+      "348": "L",
+      "349": "A",
+      "351": "F",
+      "352": "D",
+      "354": "F",
+      "355": "T",
+      "356": "W",
+      "357": "L",
+      "358": "G",
+      "359": "Y",
+      "360": "L",
+      "361": "N",
+      "362": "S",
+      "363": "L",
+      "364": "I",
+      "365": "N",
+      "366": "P",
+      "368": "I",
+      "369": "Y",
+      "370": "T",
+      "371": "M",
+      "372": "S",
+      "375": "D",
+      "376": "F",
+      "377": "K",
+      "379": "A",
+      "380": "F",
+      "381": "H",
+      "383": "L",
+      "386": "F"
+    }
+  },
+  "generic": false,
+  "sequence_numbers": [
+    38,
+    40,
+    41,
+    42,
+    43,
+    44,
+    49,
+    52,
+    53,
+    56,
+    59,
+    60,
+    62,
+    63,
+    64,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    73,
+    74,
+    75,
+    79,
+    80,
+    81,
+    83,
+    84,
+    85,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    109,
+    110,
+    111,
+    112,
+    113,
+    114,
+    115,
+    117,
+    119,
+    121,
+    122,
+    123,
+    125,
+    126,
+    127,
+    128,
+    129,
+    130,
+    131,
+    132,
+    133,
+    134,
+    135,
+    136,
+    137,
+    138,
+    139,
+    140,
+    141,
+    142,
+    143,
+    144,
+    145,
+    146,
+    147,
+    148,
+    149,
+    150,
+    151,
+    157,
+    160,
+    161,
+    162,
+    163,
+    165,
+    166,
+    169,
+    170,
+    173,
+    174,
+    176,
+    177,
+    178,
+    180,
+    181,
+    183,
+    184,
+    185,
+    186,
+    187,
+    190,
+    197,
+    198,
+    199,
+    200,
+    201,
+    202,
+    203,
+    205,
+    206,
+    208,
+    209,
+    210,
+    211,
+    212,
+    213,
+    214,
+    215,
+    216,
+    217,
+    218,
+    219,
+    220,
+    221,
+    223,
+    224,
+    227,
+    228,
+    230,
+    231,
+    234,
+    239,
+    312,
+    313,
+    315,
+    316,
+    317,
+    318,
+    319,
+    320,
+    322,
+    323,
+    324,
+    325,
+    326,
+    327,
+    328,
+    329,
+    330,
+    331,
+    332,
+    333,
+    334,
+    335,
+    337,
+    338,
+    347,
+    348,
+    349,
+    351,
+    352,
+    354,
+    355,
+    356,
+    357,
+    358,
+    359,
+    360,
+    361,
+    362,
+    363,
+    364,
+    365,
+    366,
+    368,
+    369,
+    370,
+    371,
+    372,
+    375,
+    376,
+    377,
+    379,
+    380,
+    381,
+    383,
+    386
+  ],
+  "generic_map": {
+    "49": "1x32",
+    "52": "1x35",
+    "53": "1x36",
+    "56": "1x39",
+    "59": "1x42",
+    "60": "1x43",
+    "62": "1x45",
+    "63": "1x46",
+    "64": "1x47",
+    "66": "1x49",
+    "67": "1x50",
+    "68": "1x51",
+    "69": "1x52",
+    "70": "1x53",
+    "71": "1x54",
+    "73": "1x56",
+    "74": "1x57",
+    "75": "1x58",
+    "79": "12x49",
+    "80": "12x50",
+    "81": "12x51",
+    "83": "2x38",
+    "84": "2x39",
+    "85": "2x40",
+    "86": "2x41",
+    "87": "2x42",
+    "88": "2x43",
+    "89": "2x44",
+    "90": "2x45",
+    "91": "2x46",
+    "92": "2x47",
+    "93": "2x48",
+    "94": "2x49",
+    "95": "2x50",
+    "96": "2x51",
+    "97": "2x52",
+    "98": "2x53",
+    "99": "2x54",
+    "101": "2x551",
+    "102": "2x56",
+    "103": "2x57",
+    "104": "2x58",
+    "105": "2x59",
+    "106": "2x60",
+    "107": "2x61",
+    "109": "2x63",
+    "110": "2x64",
+    "111": "2x65",
+    "112": "2x66",
+    "114": "23x49",
+    "115": "23x50",
+    "117": "23x52",
+    "119": "3x22",
+    "121": "3x24",
+    "122": "3x25",
+    "123": "3x26",
+    "125": "3x28",
+    "126": "3x29",
+    "127": "3x30",
+    "128": "3x31",
+    "129": "3x32",
+    "130": "3x33",
+    "131": "3x34",
+    "132": "3x35",
+    "133": "3x36",
+    "134": "3x37",
+    "135": "3x38",
+    "136": "3x39",
+    "137": "3x40",
+    "138": "3x41",
+    "139": "3x42",
+    "140": "3x43",
+    "141": "3x44",
+    "142": "3x45",
+    "143": "3x46",
+    "144": "3x47",
+    "145": "3x48",
+    "146": "3x49",
+    "147": "3x50",
+    "148": "3x51",
+    "149": "3x52",
+    "150": "3x53",
+    "151": "3x54",
+    "157": "34x53",
+    "160": "34x56",
+    "161": "34x57",
+    "162": "4x38",
+    "163": "4x39",
+    "165": "4x41",
+    "166": "4x42",
+    "169": "4x45",
+    "170": "4x46",
+    "173": "4x49",
+    "174": "4x50",
+    "176": "4x52",
+    "177": "4x53",
+    "178": "4x54",
+    "180": "4x56",
+    "181": "4x57",
+    "183": "4x59",
+    "184": "4x60",
+    "199": "45x50",
+    "200": "45x51",
+    "201": "45x52",
+    "205": "5x36",
+    "206": "5x37",
+    "208": "5x39",
+    "209": "5x40",
+    "210": "5x41",
+    "211": "5x42",
+    "212": "5x43",
+    "213": "5x44",
+    "214": "5x45",
+    "215": "5x46",
+    "216": "5x461",
+    "217": "5x47",
+    "218": "5x48",
+    "219": "5x49",
+    "220": "5x50",
+    "221": "5x51",
+    "223": "5x53",
+    "224": "5x54",
+    "227": "5x57",
+    "228": "5x58",
+    "230": "5x60",
+    "231": "5x61",
+    "234": "5x64",
+    "312": "6x33",
+    "313": "6x34",
+    "315": "6x36",
+    "316": "6x37",
+    "317": "6x38",
+    "318": "6x39",
+    "319": "6x40",
+    "320": "6x41",
+    "322": "6x43",
+    "323": "6x44",
+    "324": "6x45",
+    "325": "6x46",
+    "326": "6x47",
+    "327": "6x48",
+    "328": "6x49",
+    "329": "6x50",
+    "330": "6x51",
+    "331": "6x52",
+    "332": "6x53",
+    "333": "6x54",
+    "334": "6x55",
+    "335": "6x56",
+    "337": "6x58",
+    "338": "6x59",
+    "348": "7x31",
+    "349": "7x32",
+    "351": "7x34",
+    "352": "7x35",
+    "354": "7x37",
+    "355": "7x38",
+    "356": "7x39",
+    "357": "7x40",
+    "358": "7x41",
+    "359": "7x42",
+    "360": "7x43",
+    "361": "7x45",
+    "362": "7x46",
+    "363": "7x47",
+    "364": "7x48",
+    "365": "7x49",
+    "366": "7x50",
+    "368": "7x52",
+    "369": "7x53",
+    "370": "7x54",
+    "371": "7x55",
+    "372": "7x56",
+    "375": "8x49",
+    "376": "8x50",
+    "377": "8x51",
+    "379": "8x53",
+    "380": "8x54",
+    "381": "8x55",
+    "383": "8x57"
+  },
+  "segment_map": {
+    "38": "N-term",
+    "40": "N-term",
+    "41": "N-term",
+    "42": "N-term",
+    "43": "N-term",
+    "44": "N-term",
+    "49": "TM1",
+    "52": "TM1",
+    "53": "TM1",
+    "56": "TM1",
+    "59": "TM1",
+    "60": "TM1",
+    "62": "TM1",
+    "63": "TM1",
+    "64": "TM1",
+    "66": "TM1",
+    "67": "TM1",
+    "68": "TM1",
+    "69": "TM1",
+    "70": "TM1",
+    "71": "TM1",
+    "73": "TM1",
+    "74": "TM1",
+    "75": "TM1",
+    "79": "ICL1",
+    "80": "ICL1",
+    "81": "ICL1",
+    "83": "TM2",
+    "84": "TM2",
+    "85": "TM2",
+    "86": "TM2",
+    "87": "TM2",
+    "88": "TM2",
+    "89": "TM2",
+    "90": "TM2",
+    "91": "TM2",
+    "92": "TM2",
+    "93": "TM2",
+    "94": "TM2",
+    "95": "TM2",
+    "96": "TM2",
+    "97": "TM2",
+    "98": "TM2",
+    "99": "TM2",
+    "101": "TM2",
+    "102": "TM2",
+    "103": "TM2",
+    "104": "TM2",
+    "105": "TM2",
+    "106": "TM2",
+    "107": "TM2",
+    "109": "TM2",
+    "110": "TM2",
+    "111": "TM2",
+    "112": "TM2",
+    "113": "ECL1",
+    "114": "ECL1",
+    "115": "ECL1",
+    "117": "ECL1",
+    "119": "TM3",
+    "121": "TM3",
+    "122": "TM3",
+    "123": "TM3",
+    "125": "TM3",
+    "126": "TM3",
+    "127": "TM3",
+    "128": "TM3",
+    "129": "TM3",
+    "130": "TM3",
+    "131": "TM3",
+    "132": "TM3",
+    "133": "TM3",
+    "134": "TM3",
+    "135": "TM3",
+    "136": "TM3",
+    "137": "TM3",
+    "138": "TM3",
+    "139": "TM3",
+    "140": "TM3",
+    "141": "TM3",
+    "142": "TM3",
+    "143": "TM3",
+    "144": "TM3",
+    "145": "TM3",
+    "146": "TM3",
+    "147": "TM3",
+    "148": "TM3",
+    "149": "TM3",
+    "150": "TM3",
+    "151": "TM3",
+    "157": "ICL2",
+    "160": "ICL2",
+    "161": "ICL2",
+    "162": "TM4",
+    "163": "TM4",
+    "165": "TM4",
+    "166": "TM4",
+    "169": "TM4",
+    "170": "TM4",
+    "173": "TM4",
+    "174": "TM4",
+    "176": "TM4",
+    "177": "TM4",
+    "178": "TM4",
+    "180": "TM4",
+    "181": "TM4",
+    "183": "TM4",
+    "184": "TM4",
+    "185": "ECL2",
+    "186": "ECL2",
+    "187": "ECL2",
+    "190": "ECL2",
+    "197": "ECL2",
+    "198": "ECL2",
+    "199": "ECL2",
+    "200": "ECL2",
+    "201": "ECL2",
+    "202": "ECL2",
+    "203": "ECL2",
+    "205": "TM5",
+    "206": "TM5",
+    "208": "TM5",
+    "209": "TM5",
+    "210": "TM5",
+    "211": "TM5",
+    "212": "TM5",
+    "213": "TM5",
+    "214": "TM5",
+    "215": "TM5",
+    "216": "TM5",
+    "217": "TM5",
+    "218": "TM5",
+    "219": "TM5",
+    "220": "TM5",
+    "221": "TM5",
+    "223": "TM5",
+    "224": "TM5",
+    "227": "TM5",
+    "228": "TM5",
+    "230": "TM5",
+    "231": "TM5",
+    "234": "TM5",
+    "239": "ICL3",
+    "312": "TM6",
+    "313": "TM6",
+    "315": "TM6",
+    "316": "TM6",
+    "317": "TM6",
+    "318": "TM6",
+    "319": "TM6",
+    "320": "TM6",
+    "322": "TM6",
+    "323": "TM6",
+    "324": "TM6",
+    "325": "TM6",
+    "326": "TM6",
+    "327": "TM6",
+    "328": "TM6",
+    "329": "TM6",
+    "330": "TM6",
+    "331": "TM6",
+    "332": "TM6",
+    "333": "TM6",
+    "334": "TM6",
+    "335": "TM6",
+    "337": "TM6",
+    "338": "TM6",
+    "347": "ECL3",
+    "348": "TM7",
+    "349": "TM7",
+    "351": "TM7",
+    "352": "TM7",
+    "354": "TM7",
+    "355": "TM7",
+    "356": "TM7",
+    "357": "TM7",
+    "358": "TM7",
+    "359": "TM7",
+    "360": "TM7",
+    "361": "TM7",
+    "362": "TM7",
+    "363": "TM7",
+    "364": "TM7",
+    "365": "TM7",
+    "366": "TM7",
+    "368": "TM7",
+    "369": "TM7",
+    "370": "TM7",
+    "371": "TM7",
+    "372": "TM7",
+    "375": "H8",
+    "376": "H8",
+    "377": "H8",
+    "379": "H8",
+    "380": "H8",
+    "381": "H8",
+    "383": "H8",
+    "386": "C-term"
+  },
+  "interactions": {
+    "90,170": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "143,316": { "4iaq": ["hydrophobicinteraction"] },
+    "234,239": { "4iaq": ["vanderwaalsinteraction"] },
+    "147,312": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "105,115": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "209,338": { "4iaq": ["hydrophobicinteraction"] },
+    "135,173": { "4iaq": ["hydrophobicinteraction"] },
+    "97,174": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "115,197": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "74,86": { "4iaq": ["hydrophobicinteraction"] },
+    "329,354": { "4iaq": ["hydrophobicinteraction", "hydrophobicinteraction"] },
+    "84,146": { "4iaq": ["polarsidechainsidechaininteraction"] },
+    "38,43": {
+      "4iaq": [
+        "polarsidechainsidechaininteraction",
+        "polarsidechainsidechaininteraction"
+      ]
+    },
+    "42,112": {
+      "4iaq": [
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction"
+      ]
+    },
+    "213,331": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "209,334": { "4iaq": ["polarsidechainsidechaininteraction"] },
+    "326,358": { "4iaq": ["hydrophobicinteraction"] },
+    "59,360": { "4iaq": ["hydrophobicinteraction"] },
+    "79,85": {
+      "4iaq": [
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction"
+      ]
+    },
+    "203,209": {
+      "4iaq": [
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction"
+      ]
+    },
+    "109,125": {
+      "4iaq": ["hydrophobicinteraction", "polarsidechainsidechaininteraction"]
+    },
+    "87,166": { "4iaq": ["hydrophobicinteraction"] },
+    "75,81": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "94,174": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "115,199": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "115,121": {
+      "4iaq": ["hydrophobicinteraction", "polarsidechainsidechaininteraction"]
+    },
+    "141,223": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "144,227": { "4iaq": ["hydrophobicinteraction"] },
+    "84,161": {
+      "4iaq": [
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "180,208": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "131,178": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "88,369": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "217,331": {
+      "4iaq": [
+        "facetofaceinteraction",
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction",
+        "facetofaceinteraction",
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "186,202": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "41,110": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "63,99": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "66,363": { "4iaq": ["hydrophobicinteraction"] },
+    "41,113": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "115,122": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "141,227": { "4iaq": ["polarsidechainsidechaininteraction"] },
+    "79,375": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "87,170": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "131,181": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "327,359": { "4iaq": ["polarsidechainsidechaininteraction"] },
+    "337,351": { "4iaq": ["hydrophobicinteraction"] },
+    "70,366": { "4iaq": ["hydrophobicinteraction", "hydrophobicinteraction"] },
+    "98,132": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "94,132": {
+      "4iaq": [
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction"
+      ]
+    },
+    "231,313": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "119,187": {
+      "4iaq": ["hydrophobicinteraction", "polarsidechainsidechaininteraction"]
+    },
+    "133,327": {
+      "4iaq": ["hydrophobicinteraction", "polarsidechainsidechaininteraction"]
+    },
+    "333,354": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "215,220": { "4iaq": ["hydrophobicinteraction", "hydrophobicinteraction"] },
+    "40,352": {
+      "4iaq": ["polarsidechainsidechaininteraction", "vanderwaalsinteraction"]
+    },
+    "94,136": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "210,335": { "4iaq": ["hydrophobicinteraction"] },
+    "52,111": { "4iaq": ["hydrophobicinteraction"] },
+    "135,177": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "213,334": { "4iaq": ["polarsidechainsidechaininteraction"] },
+    "214,219": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "62,363": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "41,109": {
+      "4iaq": [
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction"
+      ]
+    },
+    "68,96": { "4iaq": ["hydrophobicinteraction"] },
+    "319,368": { "4iaq": ["hydrophobicinteraction"] },
+    "103,362": {
+      "4iaq": ["hydrophobicinteraction", "polarsidechainsidechaininteraction"]
+    },
+    "231,316": { "4iaq": ["hydrophobicinteraction"] },
+    "71,93": { "4iaq": ["hydrophobicinteraction", "hydrophobicinteraction"] },
+    "91,143": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "134,216": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "73,80": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "69,370": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "91,139": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction"
+      ]
+    },
+    "74,85": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "hydrophobicinteraction"
+      ]
+    },
+    "326,357": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "67,366": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction"
+      ]
+    },
+    "80,85": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "86,163": { "4iaq": ["hydrophobicinteraction"] },
+    "149,165": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "217,323": { "4iaq": ["hydrophobicinteraction"] },
+    "217,328": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "123,187": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "228,317": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "102,128": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "87,146": {
+      "4iaq": ["hydrophobicinteraction", "polarsidechainsidechaininteraction"]
+    },
+    "147,161": { "4iaq": ["polarsidechainsidechaininteraction"] },
+    "69,383": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "102,129": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "83,162": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "146,161": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "224,320": { "4iaq": ["hydrophobicinteraction"] },
+    "103,356": {
+      "4iaq": ["hydrophobicinteraction", "polarsidechainsidechaininteraction"]
+    },
+    "69,380": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "56,107": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "95,362": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "127,181": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "64,99": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "140,320": { "4iaq": ["hydrophobicinteraction"] },
+    "53,111": { "4iaq": ["hydrophobicinteraction"] },
+    "315,368": { "4iaq": ["polarsidechainsidechaininteraction"] },
+    "56,111": { "4iaq": ["hydrophobicinteraction"] },
+    "334,351": { "4iaq": ["hydrophobicinteraction"] },
+    "176,211": {
+      "4iaq": ["polarsidechainsidechaininteraction", "vanderwaalsinteraction"]
+    },
+    "74,81": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "213,218": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "203,337": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "217,327": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "142,169": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "hydrophobicinteraction"
+      ]
+    },
+    "148,227": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction"
+      ]
+    },
+    "119,190": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "40,349": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "322,361": {
+      "4iaq": [
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction"
+      ]
+    },
+    "326,364": {
+      "4iaq": ["polarsidechainsidechaininteraction", "vanderwaalsinteraction"]
+    },
+    "147,231": {
+      "4iaq": ["hydrophobicinteraction", "polarsidechainsidechaininteraction"]
+    },
+    "146,157": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "71,92": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "94,139": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "132,174": { "4iaq": ["polarsidechainsidechaininteraction"] },
+    "184,202": { "4iaq": ["hydrophobicinteraction"] },
+    "218,335": { "4iaq": ["polarsidechainsidechaininteraction"] },
+    "180,212": { "4iaq": ["hydrophobicinteraction"] },
+    "101,128": {
+      "4iaq": ["hydrophobicinteraction", "polarbackbonesidechaininteraction"]
+    },
+    "213,335": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "149,157": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "67,92": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "129,359": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "138,216": { "4iaq": ["polarsidechainsidechaininteraction"] },
+    "102,125": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "141,224": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "325,357": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "74,376": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "141,220": {
+      "4iaq": [
+        "polarbackbonesidechaininteraction",
+        "vanderwaalsinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "105,117": { "4iaq": ["hydrophobicinteraction"] },
+    "109,199": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "105,121": { "4iaq": ["hydrophobicinteraction"] },
+    "99,104": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "202,209": {
+      "4iaq": [
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction"
+      ]
+    },
+    "151,234": { "4iaq": ["hydrophobicinteraction", "hydrophobicinteraction"] },
+    "214,220": { "4iaq": ["vanderwaalsinteraction"] },
+    "184,208": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "330,354": { "4iaq": ["hydrophobicinteraction", "hydrophobicinteraction"] },
+    "41,112": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "88,143": { "4iaq": ["hydrophobicinteraction"] },
+    "44,49": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "115,198": { "4iaq": ["hydrophobicinteraction"] },
+    "126,200": { "4iaq": ["hydrophobicinteraction", "hydrophobicinteraction"] },
+    "71,96": { "4iaq": ["hydrophobicinteraction", "hydrophobicinteraction"] },
+    "145,227": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "131,174": { "4iaq": ["polarsidechainsidechaininteraction"] },
+    "218,331": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "142,173": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "91,140": { "4iaq": ["hydrophobicinteraction"] },
+    "140,319": { "4iaq": ["hydrophobicinteraction"] },
+    "319,369": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "60,356": { "4iaq": ["polarsidechainsidechaininteraction"] },
+    "322,364": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "371,377": {
+      "4iaq": [
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction"
+      ]
+    },
+    "135,174": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "hydrophobicinteraction"
+      ]
+    },
+    "106,125": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction"
+      ]
+    },
+    "70,92": { "4iaq": ["hydrophobicinteraction", "hydrophobicinteraction"] },
+    "137,216": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "130,180": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "90,139": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "115,125": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "136,327": { "4iaq": ["polarsidechainsidechaininteraction"] },
+    "59,363": { "4iaq": ["hydrophobicinteraction", "hydrophobicinteraction"] },
+    "216,331": { "4iaq": ["hydrophobicinteraction"] },
+    "70,376": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "110,356": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "183,208": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "hydrophobicinteraction"
+      ]
+    },
+    "101,125": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "139,173": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "125,199": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "186,205": {
+      "4iaq": [
+        "facetoedgeinteraction",
+        "facetoedgeinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "facetoedgeinteraction",
+        "facetoedgeinteraction",
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "126,199": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "103,359": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction"
+      ]
+    },
+    "140,323": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "83,161": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "381,386": {
+      "4iaq": [
+        "facetoedgeinteraction",
+        "facetoedgeinteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "vanderwaalsinteraction",
+        "facetoedgeinteraction",
+        "facetoedgeinteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "60,99": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "63,95": { "4iaq": ["polarsidechainsidechaininteraction"] },
+    "137,220": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "80,376": { "4iaq": ["hydrophobicinteraction"] },
+    "148,231": { "4iaq": ["hydrophobicinteraction"] },
+    "330,351": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "228,316": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "95,365": {
+      "4iaq": [
+        "polarsidechainsidechaininteraction",
+        "polarsidechainsidechaininteraction"
+      ]
+    },
+    "151,313": { "4iaq": ["hydrophobicinteraction"] },
+    "327,358": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "122,199": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "181,208": {
+      "4iaq": [
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction"
+      ]
+    },
+    "150,161": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "67,96": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction"
+      ]
+    },
+    "70,88": { "4iaq": ["hydrophobicinteraction", "hydrophobicinteraction"] },
+    "157,165": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "81,86": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "87,142": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "139,170": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "138,215": {
+      "4iaq": [
+        "polarbackbonesidechaininteraction",
+        "vanderwaalsinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "176,215": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "64,96": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "70,370": {
+      "4iaq": ["hydrophobicinteraction", "polarsidechainsidechaininteraction"]
+    },
+    "147,316": { "4iaq": ["hydrophobicinteraction"] },
+    "60,104": {
+      "4iaq": ["hydrophobicinteraction", "polarsidechainsidechaininteraction"]
+    },
+    "80,375": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "83,163": { "4iaq": ["hydrophobicinteraction", "hydrophobicinteraction"] },
+    "142,170": { "4iaq": ["hydrophobicinteraction"] },
+    "56,110": { "4iaq": ["hydrophobicinteraction"] },
+    "67,362": {
+      "4iaq": [
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "98,359": {
+      "4iaq": ["hydrophobicinteraction", "polarsidechainsidechaininteraction"]
+    },
+    "127,185": { "4iaq": ["vanderwaalsinteraction"] },
+    "41,352": {
+      "4iaq": ["polarsidechainsidechaininteraction", "vanderwaalsinteraction"]
+    },
+    "330,355": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "63,362": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "74,89": { "4iaq": ["hydrophobicinteraction"] },
+    "60,103": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "138,220": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "228,313": {
+      "4iaq": [
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction"
+      ]
+    },
+    "130,201": { "4iaq": ["hydrophobicinteraction"] },
+    "73,379": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "137,327": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "144,224": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "105,125": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "133,359": { "4iaq": ["polarsidechainsidechaininteraction"] },
+    "137,331": { "4iaq": ["hydrophobicinteraction"] },
+    "221,324": {
+      "4iaq": ["hydrophobicinteraction", "polarsidechainsidechaininteraction"]
+    },
+    "59,356": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "151,231": { "4iaq": ["hydrophobicinteraction", "hydrophobicinteraction"] },
+    "87,143": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "138,173": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction"
+      ]
+    },
+    "69,376": { "4iaq": ["hydrophobicinteraction", "hydrophobicinteraction"] },
+    "228,320": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "69,379": { "4iaq": ["hydrophobicinteraction"] },
+    "315,369": { "4iaq": ["polarsidechainsidechaininteraction"] },
+    "60,107": { "4iaq": ["polarsidechainsidechaininteraction"] },
+    "134,176": { "4iaq": ["hydrophobicinteraction"] },
+    "42,49": {
+      "4iaq": [
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction"
+      ]
+    },
+    "326,361": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "131,177": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "106,359": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "218,332": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "66,366": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "98,103": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "109,200": { "4iaq": ["polarsidechainsidechaininteraction"] },
+    "333,351": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "49,111": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "63,103": {
+      "4iaq": ["hydrophobicinteraction", "polarsidechainsidechaininteraction"]
+    },
+    "40,110": {
+      "4iaq": [
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction"
+      ]
+    },
+    "315,372": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "134,177": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction"
+      ]
+    },
+    "147,313": {
+      "4iaq": ["hydrophobicinteraction", "polarsidechainsidechaininteraction"]
+    },
+    "114,197": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "143,369": { "4iaq": ["polarsidechainsidechaininteraction"] },
+    "149,169": {
+      "4iaq": ["hydrophobicinteraction", "polarsidechainsidechaininteraction"]
+    },
+    "369,376": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "370,377": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "109,115": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "224,323": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "323,361": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction"
+      ]
+    },
+    "73,376": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "98,362": { "4iaq": ["polarsidechainsidechaininteraction"] },
+    "88,376": { "4iaq": ["hydrophobicinteraction", "hydrophobicinteraction"] },
+    "329,357": { "4iaq": ["hydrophobicinteraction"] },
+    "144,316": { "4iaq": ["hydrophobicinteraction", "hydrophobicinteraction"] },
+    "327,361": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction"
+      ]
+    },
+    "221,323": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "91,136": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "138,219": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "106,356": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "95,136": { "4iaq": ["polarsidechainsidechaininteraction"] },
+    "94,135": {
+      "4iaq": ["hydrophobicinteraction", "polarsidechainsidechaininteraction"]
+    },
+    "138,223": {
+      "4iaq": ["hydrophobicinteraction", "polarsidechainsidechaininteraction"]
+    },
+    "109,114": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "130,181": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "hydrophobicinteraction"
+      ]
+    },
+    "140,224": { "4iaq": ["hydrophobicinteraction", "hydrophobicinteraction"] },
+    "370,376": {
+      "4iaq": ["hydrophobicinteraction", "polarsidechainsidechaininteraction"]
+    },
+    "41,111": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "67,95": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "63,363": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "206,338": { "4iaq": ["hydrophobicinteraction", "hydrophobicinteraction"] },
+    "139,174": {
+      "4iaq": ["hydrophobicinteraction", "polarsidechainsidechaininteraction"]
+    },
+    "137,323": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "180,211": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "160,165": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "148,230": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "125,359": { "4iaq": ["polarsidechainsidechaininteraction"] },
+    "126,201": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "102,359": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "40,347": {
+      "4iaq": ["hydrophobicinteraction", "polarsidechainsidechaininteraction"]
+    },
+    "85,376": { "4iaq": ["polarsidechainsidechaininteraction"] },
+    "150,157": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "40,348": { "4iaq": ["hydrophobicinteraction"] },
+    "56,356": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "hydrophobicinteraction"
+      ]
+    },
+    "91,369": { "4iaq": ["hydrophobicinteraction"] },
+    "138,176": {
+      "4iaq": [
+        "facetoedgeinteraction",
+        "facetoedgeinteraction",
+        "hydrophobicinteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "109,198": { "4iaq": ["polarsidechainsidechaininteraction"] },
+    "74,80": { "4iaq": ["hydrophobicinteraction", "hydrophobicinteraction"] },
+    "107,356": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "110,352": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction"
+      ]
+    },
+    "41,49": {
+      "4iaq": [
+        "hydrophobicinteraction",
+        "polarbackbonesidechaininteraction",
+        "polarsidechainsidechaininteraction",
+        "vanderwaalsinteraction"
+      ]
+    },
+    "318,368": { "4iaq": ["hydrophobicinteraction", "vanderwaalsinteraction"] },
+    "140,365": { "4iaq": ["polarsidechainsidechaininteraction"] }
+  },
+  "pdbs": ["4iaq"],
+  "segments": [
+    "TM3",
+    "N-term",
+    "ICL2",
+    "ECL2",
+    "ECL3",
+    "H8",
+    "TM2",
+    "TM4",
+    "TM6",
+    "ECL1",
+    "ICL1",
+    "ICL3",
+    "TM7",
+    "TM5",
+    "C-term",
+    "TM1"
+  ]
+}
