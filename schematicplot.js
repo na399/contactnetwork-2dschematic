@@ -12,7 +12,7 @@ function createSchematicPlot(data, container, options) {
 
   // Put all of the options into a variable called config
   if (typeof options !== 'undefined') {
-    Object.keys(options).forEach(i => {
+    Object.keys(options).forEach((i) => {
       if (typeof options[i] !== 'undefined') {
         config[i] = options[i];
       }
@@ -24,12 +24,12 @@ function createSchematicPlot(data, container, options) {
     data = JSON.parse(data);
   }
 
-  let interactions = data.interactions;
-  let segment_map_full = data.segment_map_full;
-  let sequence_numbers = data.sequence_numbers;
-  let aa_map = data.aa_map[Object.keys(data.aa_map)[0]];
-  let gen_map = data.generic_map;
-  let num_seq_numbers = Object.keys(data.sequence_numbers).length;
+  const interactions = data.interactions;
+  const segment_map_full = data.segment_map_full;
+  const sequence_numbers = data.sequence_numbers;
+  const aa_map = data.aa_map[Object.keys(data.aa_map)[0]];
+  const gen_map = data.generic_map;
+  const num_seq_numbers = Object.keys(data.sequence_numbers).length;
 
   // Compute segment offsets
   let i;
@@ -101,7 +101,7 @@ function createSchematicPlot(data, container, options) {
     .select('svg')
     .remove();
 
-  // Initiate the radar chart SVG
+  // Initiate the SVG
   let svg = d3
     .select(container)
     .append('svg')
@@ -109,17 +109,19 @@ function createSchematicPlot(data, container, options) {
     .attr('height', config.h + config.margin.top + config.margin.bottom)
     .attr('class', 'schematic2d');
 
-  var oldCol = 0;
-  var oldI = 0;
-  var offset = 0;
+
+  // Draw Reisues
+  let oldCol = 0;
+  let oldI = 0;
+  let offset = 0;
 
   let g = svg
     .selectAll('g')
     .data(Object.keys(segment_map_full))
     .enter()
     .append('g')
-    .attr('class', d => `node aa-${d}`)
-    .attr('data-aa', d => d)
+    .attr('class', (d) => `node aa-${d}`)
+    .attr('data-aa', (d) => d)
     .attr('transform', (d, i) => {
       let col = segmentList.indexOf(segment_map_full[d]);
 
@@ -160,67 +162,84 @@ function createSchematicPlot(data, container, options) {
     // .attr('stroke', 'white')
     .text((d, i) => d);
 
+  // Draw contact lines
   d3
     .select('.schematic2d')
     .append('g')
-    .selectAll('line')
+    .selectAll('path')
     .data(
       Object.keys(interactions).filter((d) => {
         pair = separatePair(d);
-        if (pair[0] in segment_map_full && pair[1] in segment_map_full){
-            if (isContiguous(segment_map_full[pair[0]], segment_map_full[pair[1]])) {
-                return d;
-              }
+        if (pair[0] in segment_map_full && pair[1] in segment_map_full) {
+          if (
+            isContiguous(segment_map_full[pair[0]], segment_map_full[pair[1]])
+          ) {
+            return d;
+          }
         }
-      })
+      }),
     )
     .enter()
-    .insert('line', 'g')
-    .attrs({
-      x1: d => parseInt(getCoordAA(separatePair(d)[0])[0]) + 10,
-      y1: d => parseInt(getCoordAA(separatePair(d)[0])[1]) + 7,
-      x2: d => parseInt(getCoordAA(separatePair(d)[1])[0]) + 10,
-      y2: d => parseInt(getCoordAA(separatePair(d)[1])[1]) + 7,
+    .append('path')
+    .attr('d', (d) => {
+      let coord = getCoordPair(d);
+
+      return `M ${coord.sourceX} ${coord.sourceY} L ${coord.targetX} ${coord.targetY}`;
+    })
+    .attr('data-gradient', (d) => {
+      let coord = getCoordPair(d);
+
+      return -(coord.targetY - coord.sourceY) / (coord.targetX - coord.sourceX);
     })
     .style('stroke', 'steelblue')
     .style('opacity', '0.6')
     .attr('class', (d) => `edge-${d}`);
 
+  function getCoordPair(pair) {
+    let AAs = separatePair(pair);
+    let coordSourceAA = getCoordAA(AAs[0]);
+    let coordTargetAA = getCoordAA(AAs[1]);
+
+    return {
+      sourceY: parseInt(coordSourceAA.y) + 7,
+      sourceX: parseInt(coordSourceAA.x) + 20,
+      targetX: parseInt(coordTargetAA.x),
+      targetY: parseInt(coordTargetAA.y) + 7,
+    };
+  }
+
   function isContiguous(segment1, segment2) {
-    var regex = /[TMH]+([0-9])/;
+    let regex = /[TMH]+([0-9])/;
 
     if (!regex.exec(segment1) || !regex.exec(segment2)) {
-        return false;
+      return false;
     } else {
-        var segNo1 = regex.exec(segment1)[1];
-        var segNo2 = regex.exec(segment2)[1];
+      let segNo1 = regex.exec(segment1)[1];
+      let segNo2 = regex.exec(segment2)[1];
 
-        if (segNo2 - segNo1 === 1) {
-            return true;
-        } else {
-            return false;
-        }
+      if (segNo2 - segNo1 === 1) {
+        return true;
+      } else {
+        return false;
+      }
     }
-
-
   }
 
   function getCoordAA(aa) {
     translate = d3.select(`.aa-${aa}`).attr('transform');
 
-    var regex = /(-?[0-9]+),(-?[0-9]+)/;
+    let regex = /(-?[0-9]+),(-?[0-9]+)/;
 
-    var matches = regex.exec(translate);
+    let matches = regex.exec(translate);
 
-    return [matches[1], matches[2]];
+    return { x: matches[1], y: matches[2] };
   }
 
   function separatePair(stringPair) {
-    var regex = /([0-9x]+),([0-9x]+)/;
+    let regex = /([0-9x]+),([0-9x]+)/;
 
     matches = regex.exec(stringPair);
 
     return [matches[1], matches[2]];
   }
-
 }
