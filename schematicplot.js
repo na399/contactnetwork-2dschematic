@@ -122,6 +122,7 @@ function createSchematicPlot(data, container, options) {
     .append('g')
     .attr('class', (d) => `node aa-${d}`)
     .attr('data-aa', (d) => d)
+    .attr('data-segment', (d) => segment_map_full[d])
     .attr('transform', (d, i) => {
       let col = segmentList.indexOf(segment_map_full[d]);
 
@@ -151,15 +152,17 @@ function createSchematicPlot(data, container, options) {
     // .attr('class', (d) => `rect aa-${d}`)
     .style(
       'fill',
-      (d, i) => segmentColors[segmentList.indexOf(segment_map_full[d]) + 1],
-    );
+      'white'
+      //(d, i) => segmentColors[segmentList.indexOf(segment_map_full[d]) + 1],
+    )
+    .style('stroke', 'black');
 
   g
     .append('text')
-    .attr('x', 1)
+    .attr('x', 10)
     .attr('y', 11)
     .attr('font-size', 10)
-    // .attr('stroke', 'white')
+    .attr('text-anchor', 'middle')
     .text((d, i) => d);
 
   // Draw contact lines
@@ -170,13 +173,13 @@ function createSchematicPlot(data, container, options) {
     .data(
       Object.keys(interactions).filter((d) => {
         pair = separatePair(d);
-        if (pair[0] in segment_map_full && pair[1] in segment_map_full) {
+        //if (pair[0] in segment_map_full && pair[1] in segment_map_full) {
           if (
             isContiguous(segment_map_full[pair[0]], segment_map_full[pair[1]])
           ) {
             return d;
           }
-        }
+        //}
       }),
     )
     .enter()
@@ -191,9 +194,12 @@ function createSchematicPlot(data, container, options) {
 
       return -(coord.targetY - coord.sourceY) / (coord.targetX - coord.sourceX);
     })
+    .attr('data-source-segment', (d) => segment_map_full[separatePair(d)[0]])
+    .attr('data-target-segment', (d) => segment_map_full[separatePair(d)[1]])
     .style('stroke', 'steelblue')
     .style('opacity', '0.6')
     .attr('class', (d) => `edge-${d}`);
+
 
   function getCoordPair(pair) {
     let AAs = separatePair(pair);
