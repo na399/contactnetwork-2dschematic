@@ -60,23 +60,8 @@
     <!-- Plot -->
     <script src="schematicplot.js"></script>
     <script>
-        var margin = {
-                top: 100,
-                right: 100,
-                bottom: 100,
-                left: 100
-            },
-            width = 1200,
-            height = 600;
-
-
-        var schematicPlotOptions = {
-            w: width,
-            h: height
-        };
-
-        d3.json("resources/4IAQ.json", function (json) {
-            createSchematicPlot(json, ".schematic-container", schematicPlotOptions)
+        d3.json("resources/4IAQ.new.json", function (json) {
+            createSchematicPlot(json, ".schematic-container")
         });
     </script>
 

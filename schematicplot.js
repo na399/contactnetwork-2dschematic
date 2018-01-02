@@ -1,7 +1,7 @@
-function createSchematicPlot(data, id, options) {
+function createSchematicPlot(data, container, options) {
   let config = {
     w: 1200, // Width of the circle
-    h: 600, // Height of the circle
+    h: 700, // Height of the circle
     margin: {
       top: 20,
       right: 20,
@@ -25,7 +25,7 @@ function createSchematicPlot(data, id, options) {
   }
 
   let interactions = data.interactions;
-  let segment_map = data.segment_map;
+  let segment_map_full = data.segment_map_full;
   let sequence_numbers = data.sequence_numbers;
   let aa_map = data.aa_map[Object.keys(data.aa_map)[0]];
   let gen_map = data.generic_map;
@@ -37,11 +37,11 @@ function createSchematicPlot(data, id, options) {
   let segments = [];
 
   let seg;
-  let prevSeg = segment_map[sequence_numbers[0]];
+  let prevSeg = segment_map_full[sequence_numbers[0]];
   let seqStart = 0;
 
   for (i = 0; i < num_seq_numbers; i++) {
-    seg = segment_map[sequence_numbers[i]];
+    seg = segment_map_full[sequence_numbers[i]];
 
     if (seg === prevSeg) {
       continue;
@@ -97,13 +97,13 @@ function createSchematicPlot(data, id, options) {
 
   // Remove whatever chart with the same id/class was present before
   d3
-    .select(id)
+    .select(container)
     .select('svg')
     .remove();
 
   // Initiate the radar chart SVG
   let svg = d3
-    .select(id)
+    .select(container)
     .append('svg')
     .attr('width', config.w + config.margin.left + config.margin.right)
     .attr('height', config.h + config.margin.top + config.margin.bottom)
@@ -115,13 +115,13 @@ function createSchematicPlot(data, id, options) {
 
   let g = svg
     .selectAll('g')
-    .data(Object.keys(segment_map))
+    .data(Object.keys(segment_map_full))
     .enter()
     .append('g')
     .attr('class', d => `node aa-${d}`)
     .attr('data-aa', d => d)
     .attr('transform', (d, i) => {
-      let col = segmentList.indexOf(segment_map[d]);
+      let col = segmentList.indexOf(segment_map_full[d]);
 
       let height = 15;
       let x = 120 * col;
@@ -134,7 +134,7 @@ function createSchematicPlot(data, id, options) {
       if (col % 2 === 0) {
         y = (i - oldI) * height;
       } else {
-        y = 500 - (i - oldI) * height;
+        y = 700 - (i - oldI) * height;
       }
 
       oldCol = col;
@@ -149,7 +149,7 @@ function createSchematicPlot(data, id, options) {
     // .attr('class', (d) => `rect aa-${d}`)
     .style(
       'fill',
-      (d, i) => segmentColors[segmentList.indexOf(segment_map[d]) + 1],
+      (d, i) => segmentColors[segmentList.indexOf(segment_map_full[d]) + 1],
     );
 
   g
@@ -167,8 +167,10 @@ function createSchematicPlot(data, id, options) {
     .data(
       Object.keys(interactions).filter((d) => {
         pair = separatePair(d);
-        if (isContiguous(segment_map[pair[0]], segment_map[pair[1]])) {
-          return d;
+        if (pair[0] in segment_map_full && pair[1] in segment_map_full){
+            if (isContiguous(segment_map_full[pair[0]], segment_map_full[pair[1]])) {
+                return d;
+              }
         }
       })
     )
@@ -182,7 +184,7 @@ function createSchematicPlot(data, id, options) {
     })
     .style('stroke', 'steelblue')
     .style('opacity', '0.6')
-    .attr('class', d => `edge-${d}`);
+    .attr('class', (d) => `edge-${d}`);
 
   function isContiguous(segment1, segment2) {
     var regex = /[TMH]+([0-9])/;
@@ -206,7 +208,7 @@ function createSchematicPlot(data, id, options) {
   function getCoordAA(aa) {
     translate = d3.select(`.aa-${aa}`).attr('transform');
 
-    var regex = /([0-9x]+),([0-9x]+)/g;
+    var regex = /(-?[0-9]+),(-?[0-9]+)/;
 
     var matches = regex.exec(translate);
 
@@ -214,14 +216,11 @@ function createSchematicPlot(data, id, options) {
   }
 
   function separatePair(stringPair) {
-    var regex = /([0-9x]+),([0-9x]+)/g;
+    var regex = /([0-9x]+),([0-9x]+)/;
 
     matches = regex.exec(stringPair);
 
     return [matches[1], matches[2]];
   }
 
-  //   setTimeout(() => {
-  //     console.log(getCoordAA(131));
-  //   }, 2000);
 }
