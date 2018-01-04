@@ -1,7 +1,7 @@
-function createSchematicPlot(data, container, options) {
+function createSchematicPlot(data, containerSelector, options) {
   let config = {
     w: 1200, // Width of the circle
-    h: 700, // Height of the circle
+    h: 900, // Height of the circle
     margin: {
       top: 20,
       right: 20,
@@ -97,23 +97,23 @@ function createSchematicPlot(data, container, options) {
 
   // Remove whatever chart with the same id/class was present before
   d3
-    .select(container)
+    .select(containerSelector)
     .select('svg')
     .remove();
 
   // Initiate the SVG
   let svg = d3
-    .select(container)
+    .select(containerSelector)
     .append('svg')
     .attr('width', config.w + config.margin.left + config.margin.right)
     .attr('height', config.h + config.margin.top + config.margin.bottom)
     .attr('class', 'schematic2d');
 
-
   // Draw Reisues
   let oldCol = 0;
   let oldI = 0;
   let offset = 0;
+  let colSpace = 120;
 
   let g = svg
     .selectAll('g')
@@ -127,7 +127,7 @@ function createSchematicPlot(data, container, options) {
       let col = segmentList.indexOf(segment_map_full[d]);
 
       let height = 15;
-      let x = 120 * col;
+      let x = colSpace * col;
 
       if (oldCol !== col) {
         oldI = i - 1;
@@ -152,7 +152,7 @@ function createSchematicPlot(data, container, options) {
     // .attr('class', (d) => `rect aa-${d}`)
     .style(
       'fill',
-      'white'
+      'white',
       //(d, i) => segmentColors[segmentList.indexOf(segment_map_full[d]) + 1],
     )
     .style('stroke', 'black');
@@ -166,40 +166,157 @@ function createSchematicPlot(data, container, options) {
     .text((d, i) => d);
 
   // Draw contact lines
+  let interactionsList = [];
+
+  Object.keys(interactions).forEach((interaction) => {
+    pair = separatePair(interaction);
+    if (pair[0] in segment_map_full && pair[1] in segment_map_full) {
+      if (isContiguous(segment_map_full[pair[0]], segment_map_full[pair[1]])) {
+        getInteractionTypesFromPdbObject(Object.values(interactions[interaction])).forEach(
+          // only works with a single PDB
+          (interactionType) => {
+            let d = {
+              pair: interaction,
+              interactionType: interactionType,
+            };
+            interactionsList.push(d);
+          },
+        );
+      }
+    }
+  });
+
   d3
     .select('.schematic2d')
     .append('g')
     .selectAll('path')
-    .data(
-      Object.keys(interactions).filter((d) => {
-        pair = separatePair(d);
-        //if (pair[0] in segment_map_full && pair[1] in segment_map_full) {
-          if (
-            isContiguous(segment_map_full[pair[0]], segment_map_full[pair[1]])
-          ) {
-            return d;
-          }
-        //}
-      }),
-    )
+    .data(interactionsList)
     .enter()
     .append('path')
     .attr('d', (d) => {
-      let coord = getCoordPair(d);
+      let coord = getCoordPair(d.pair);
 
       return `M ${coord.sourceX} ${coord.sourceY} L ${coord.targetX} ${coord.targetY}`;
     })
-    .attr('data-gradient', (d) => {
-      let coord = getCoordPair(d);
-
-      return -(coord.targetY - coord.sourceY) / (coord.targetX - coord.sourceX);
+    .attr(
+      'data-source-segment',
+      (d) => segment_map_full[separatePair(d.pair)[0]],
+    )
+    .attr(
+      'data-target-segment',
+      (d) => segment_map_full[separatePair(d.pair)[1]],
+    )
+    .attr('data-interaction-type', (d) => d.interactionType)
+    .style('stroke', (d) => {
+      let rgb = getInteractionColor(d.interactionType);
+      let hex = rgb2hex(rgb.r, rgb.g, rgb.b);
+      return hex;
     })
-    .attr('data-source-segment', (d) => segment_map_full[separatePair(d)[0]])
-    .attr('data-target-segment', (d) => segment_map_full[separatePair(d)[1]])
-    .style('stroke', 'steelblue')
     .style('opacity', '0.6')
-    .attr('class', (d) => `edge-${d}`);
+    .attr(
+      'class',
+      (d) =>
+        `${getFriendlyInteractionName(d.interactionType).replace(
+          / /g,
+          '-',
+        )} edge edge-${d.pair}`,
+    );
 
+  // Reposition the helices by minimizing the sum of gradients of contacts
+  segmentList.forEach((segment) => {
+    if (segment != 'TM1') {
+      let gradientSum = 0;
+      let contactCount = 0;
+
+      $(`path[data-target-segment='${segment}']`).each((i, path) => {
+        let d = path.getAttribute('d');
+
+        let regex = /M (.+) (.+) L (.+) (.+)/;
+        let matches = regex.exec(d);
+
+        let gradient = (matches[4] - matches[2]) / (matches[3] - matches[1]);
+
+        gradientSum += gradient;
+        contactCount += 1;
+      });
+
+      let gradientMean = gradientSum / contactCount;
+      let shiftY = gradientMean * colSpace;
+
+      console.log(-gradientMean);
+
+      // Reposition each node
+      $(`g.node[data-segment='${segment}'`).each((i, g) => {
+        let transformValue = g.getAttribute('transform');
+
+        let regex = /\((.+),(.+)\)/;
+        let matches = regex.exec(transformValue);
+
+        let x = matches[1];
+        let y = matches[2] - shiftY;
+
+        g.setAttribute('transform', `translate(${x},${y})`);
+      });
+
+      // Reposition the edges TERMINATING at the repositioned nodes
+      $(`path[data-target-segment='${segment}']`).each((i, path) => {
+        let d = path.getAttribute('d');
+
+        let regex = /M (.+) (.+) L (.+) (.+)/;
+        let matches = regex.exec(d);
+
+        let newTargetY = matches[4] - shiftY;
+
+        path.setAttribute(
+          'd',
+          `M ${matches[1]} ${matches[2]} L ${matches[3]} ${newTargetY}`,
+        );
+      });
+
+      // Reposition the edges ORIGINATING at the repositioned nodes
+      $(`path[data-source-segment='${segment}']`).each((i, path) => {
+        let d = path.getAttribute('d');
+
+        let regex = /M (.+) (.+) L (.+) (.+)/;
+        let matches = regex.exec(d);
+
+        let newSourceY = matches[2] - shiftY;
+
+        path.setAttribute(
+          'd',
+          `M ${matches[1]} ${newSourceY} L ${matches[3]} ${matches[4]}`,
+        );
+      });
+    }
+  });
+
+  console.log('^^^^^^^^^^^^^^^^^');
+  console.log('Gradient Before');
+  console.log('=================');
+  console.log('Gradient After');
+  console.log('vvvvvvvvvvvvvvvvv');
+
+  segmentList.forEach((segment) => {
+    if (segment != 'TM1') {
+      let gradientSum = 0;
+      let contactCount = 0;
+
+      $(`path[data-target-segment='${segment}']`).each((i, path) => {
+        let d = path.getAttribute('d');
+
+        let regex = /M (.+) (.+) L (.+) (.+)/;
+        let matches = regex.exec(d);
+
+        let gradient = (matches[4] - matches[2]) / (matches[3] - matches[1]);
+
+        gradientSum += gradient;
+        contactCount += 1;
+      });
+
+      let gradientMean = gradientSum / contactCount;
+      console.log(-gradientMean);
+    }
+  });
 
   function getCoordPair(pair) {
     let AAs = separatePair(pair);
@@ -207,10 +324,10 @@ function createSchematicPlot(data, container, options) {
     let coordTargetAA = getCoordAA(AAs[1]);
 
     return {
-      sourceY: parseInt(coordSourceAA.y) + 7,
-      sourceX: parseInt(coordSourceAA.x) + 20,
-      targetX: parseInt(coordTargetAA.x),
-      targetY: parseInt(coordTargetAA.y) + 7,
+      sourceY: parseFloat(coordSourceAA.y) + 7,
+      sourceX: parseFloat(coordSourceAA.x) + 20,
+      targetX: parseFloat(coordTargetAA.x),
+      targetY: parseFloat(coordTargetAA.y) + 7,
     };
   }
 
@@ -248,4 +365,73 @@ function createSchematicPlot(data, container, options) {
 
     return [matches[1], matches[2]];
   }
+
+  // Create Legend
+  // Populatschematic legend
+  let interactionTypes = new Set();
+
+  $(containerSelector + ' .edge').each(function() {
+    let friendlyName = getFriendlyInteractionName(
+      $(this).data('interaction-type'),
+    );
+    interactionTypes.add(friendlyName);
+  });
+
+  // Add interactions color legend
+  let legendHtml = '<ul>';
+
+  interactionTypes = Array.from(interactionTypes).sort(function(i1, i2) {
+    return getInteractionStrength(i2) - getInteractionStrength(i1);
+  });
+
+  interactionTypes.forEach(function(i) {
+    let rgb = getInteractionColor(i);
+    legendHtml =
+      legendHtml +
+      '<li>' +
+      '<div class="color-box" style="background-color: ' +
+      rgb2hex(rgb.r, rgb.g, rgb.b) +
+      '">' +
+      '<input type="checkbox" data-interaction-type="' +
+      i.replace(/ /g, '-') +
+      '"></input>' +
+      '</div><p>' +
+      i +
+      '</p>' +
+      '</li>';
+  });
+  legendHtml += '</ul>';
+
+  // Add SVG download button
+  legendHtml +=
+    '<button onclick="downloadSVG(\'' +
+    containerSelector +
+    'schematic\', \'interactions.svg\')" type="button" class="btn btn-primary pull-right svg-download-button" aria-label="Left Align">' +
+    '<span class="glyphicon glyphicon-download" aria-hidden="true"></span> Download SVG' +
+    '</button>';
+
+  // Add CSV download button
+  legendHtml +=
+    '<br /><button onclick="downloadSingleCrystalCSV(\'' +
+    containerSelector +
+    'schematic\', \'interactions.csv\')" type="button" class="btn btn-success pull-right csv-download-button" aria-label="Left Align"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Download CSV' +
+    '</button>';
+
+  $(containerSelector + ' .schematic-legend').append(legendHtml);
+
+  $(containerSelector + ' .schematic-legend input[type=checkbox]').each(
+    function() {
+      $(this).prop('checked', true);
+      $(this).change(function() {
+        let interactionType = $(this).data('interaction-type');
+        let paths = $(containerSelector + ' path.' + interactionType);
+
+        if ($(this).is(':checked')) {
+          paths.show();
+        } else {
+          paths.hide();
+        }
+      });
+    },
+  );
 }
