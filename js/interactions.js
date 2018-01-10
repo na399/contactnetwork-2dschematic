@@ -160,7 +160,8 @@ function getInteractionColor(interaction) {
         case 'polarbackbonesidechaininteraction':
         case getFriendlyInteractionName('polarsidechainsidechaininteraction'):
         case getFriendlyInteractionName('polarbackbonesidechaininteraction'):
-            r = 254; g = 0; b = 16;
+            // r = 215; g = 25; b = 28;
+            r = 228; g = 26; b = 28;
             break;
         case 'facetofaceinteraction':
         case 'facetoedgeinteraction':
@@ -168,15 +169,18 @@ function getInteractionColor(interaction) {
         case getFriendlyInteractionName('facetofaceinteraction'):
         case getFriendlyInteractionName('facetoedgeinteraction'):
         case getFriendlyInteractionName('picationinteraction'):
-            r = 94; g = 241; b = 242;
+            // r = 253; g = 174; b = 97;
+            r = 55; g = 126; b = 184;
             break;
         case 'hydrophobicinteraction':
         case getFriendlyInteractionName('hydrophobicinteraction'):
-            r = 0; g = 117; b = 220;
+            // r = 171; g = 221; b = 164;
+            r = 77; g = 175; b = 74;
             break;
         case 'vanderwaalsinteraction':
         case getFriendlyInteractionName('vanderwaalsinteraction'):
-            r = 89; g = 252; b = 197;
+            // r = 43; g = 131; b = 186;
+            r = 152; g = 78; b = 163;
             break;
         default:
             r = 0; g = 0; b = 0;

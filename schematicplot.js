@@ -212,6 +212,7 @@ function createSchematicPlot(data, containerSelector, options) {
       let hex = rgb2hex(rgb.r, rgb.g, rgb.b);
       return hex;
     })
+    .style('stroke-width', '3')
     .style('opacity', '0.6')
     .attr(
       'class',
