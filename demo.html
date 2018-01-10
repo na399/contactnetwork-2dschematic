@@ -25,28 +25,6 @@
 <body>
 
     <br>
-    <div class="container">
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title pull-left">2D Schematic Plot - sequential</h3>
-                        <span class="pull-right glyphicon glyphicon-fullscreen btn-fullscreen"></span>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="panel-body">
-                        <div class="schematic-container">
-                            <div class="schematic-legend"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <br>
     <div class="container" id="content">
 
         <div class="row">
@@ -83,8 +61,12 @@
     <script src="js/interactions.js"></script>
     <script src="schematicplot.js"></script>
     <script>
-        d3.json("resources/4IAQ.new.json", function (json) {
-            createSchematicPlot(json, ".schematic-container")
+        // d3.json("resources/4IAQ.new.json", function (json) {
+        //     createSchematicPlot(json, ".schematic-container")
+        // });
+
+        d3.json("resources/5-HT.new.json", function (json) {
+            createSchematicPlot(json, ".schematic-container", {type: 'singleCrystalGroup'})
         });
     </script>
 
