@@ -202,8 +202,7 @@ function createSchematicPlot(data, containerSelector, options) {
   }
 
   if (isGeneric) {
-    d3.select('.schematic2d')
-      .append('g')
+    svg.append('g')
       .selectAll('path')
       .data(Object.keys(interactions))
       .enter()
@@ -222,22 +221,32 @@ function createSchematicPlot(data, containerSelector, options) {
       })
       .attr('data-source-segment', d => segment_map_full_gn[separatePair(d)[0]])
       .attr('data-target-segment', d => segment_map_full_gn[separatePair(d)[1]])
-      // .attr('data-interaction-type', d => d.interactionType)
+      // .attr('data-pdbs', d => Object.keys(interactions[d]))
       .attr('data-num-interactions', (d) => {
         let nInteractions = Object.keys(interactions[d]).length;
-        //let frequency = nInteractions / data.pdbs.length;
         return nInteractions;
       })
-      .style('stroke', 'red')
+      .style('stroke', (d) => {
+        let nInteractions = Object.keys(interactions[d]).length;
+        let frequency = nInteractions / data.pdbs.length;
+        return d3.interpolateReds(frequency / 1.5);
+      })
       .style('stroke-width', '2')
       .style('opacity', '0.6')
       .attr(
         'class',
         d => `edge edge-${d}`,
-      );
+      )
+      .on('mouseover', function (d) {
+        d3.select(this).classed('highlighted', true);
+        // console.log(getCoordPair(d))
+      })
+      .on('mouseout', function(d) {
+        d3.select(this).classed('highlighted', false);
+      });
+      
   } else {
-    d3.select('.schematic2d')
-      .append('g')
+    svg.append('g')
       .selectAll('path')
       .data(interactionsList)
       .enter()
@@ -441,29 +450,32 @@ function createSchematicPlot(data, containerSelector, options) {
 
     function getRangeChangeFunction() {
 
-        return function() {
-            var tMin = $(containerSelector + ' .schematic-legend .min-interactions-range').val();
-            var tMax = $(containerSelector + ' .schematic-legend .max-interactions-range').val();
+      return function() {
+        var tMin = $(containerSelector + ' .schematic-legend .min-interactions-range').val();
+        var tMax = $(containerSelector + ' .schematic-legend .max-interactions-range').val();
 
 
-            $(containerSelector + ' .schematic-legend .min-value').html(tMin);
-            $(containerSelector + ' .schematic-legend .max-value').html(tMax);
+        $(containerSelector + ' .schematic-legend .min-value').html(tMin);
+        $(containerSelector + ' .schematic-legend .max-value').html(tMax);
 
-            // Hide all below min treshold
-            $(containerSelector + ' .edge').each(function() {
-                var n = $(this).data("num-interactions");
-                if (n < tMin || tMax < n) {
-                    $(this).hide();
-                } else {
-                    $(this).show();
-                }
-            });
-        }
+        // Hide all below min treshold
+        $(containerSelector + ' .edge').each(function() {
+          var n = $(this).data("num-interactions");
+          if (n < tMin || tMax < n) {
+            $(this).hide();
+          } else {
+            $(this).show();
+          }
+        });
+      }
     }
 
     $(containerSelector + ' .schematic-legend .min-interactions-range').change(getRangeChangeFunction());
 
     $(containerSelector + ' .schematic-legend .max-interactions-range').change(getRangeChangeFunction());
+
+
+
 
   } else {
     // Populatschematic legend
@@ -509,21 +521,21 @@ function createSchematicPlot(data, containerSelector, options) {
     '<span class="glyphicon glyphicon-download" aria-hidden="true"></span> Download SVG' +
     '</button>';
 
-  // Add CSV download button
-  legendHtml +=
+    // Add CSV download button
+    legendHtml +=
     '<br /><button onclick="downloadSingleCrystalCSV(\'' +
     containerSelector +
     'schematic\', \'interactions.csv\')" type="button" class="btn btn-success pull-right csv-download-button" aria-label="Left Align"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Download CSV' +
     '</button>';
 
-  $(containerSelector + ' .schematic-legend').append(legendHtml);
+    $(containerSelector + ' .schematic-legend').append(legendHtml);
 
-  $(containerSelector + ' .schematic-legend input[type=checkbox]').each(
-    function() {
-      $(this).prop('checked', true);
-      $(this).change(function() {
-        let interactionType = $(this).data('interaction-type');
-        let paths = $(containerSelector + ' path.' + interactionType);
+    $(containerSelector + ' .schematic-legend input[type=checkbox]').each(
+      function() {
+        $(this).prop('checked', true);
+        $(this).change(function() {
+          let interactionType = $(this).data('interaction-type');
+          let paths = $(containerSelector + ' path.' + interactionType);
 
           if ($(this).is(':checked')) {
             paths.show();
