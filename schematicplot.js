@@ -37,6 +37,7 @@ function createSchematicPlot(data, containerSelector, options) {
   const sequence_numbers = data.sequence_numbers;
   const aa_map = data.aa_map[Object.keys(data.aa_map)[0]];
   const gen_map = data.generic_map;
+  const gen_map_full = data.generic_map_full;
   const num_seq_numbers = Object.keys(data.sequence_numbers).length;
 
   // Compute segment offsets
@@ -173,7 +174,7 @@ function createSchematicPlot(data, containerSelector, options) {
     .attr('y', rectHeight - 3)
     .attr('font-size', 10)
     .attr('text-anchor', 'middle')
-    .text(d => d);
+    .text(d => (isGeneric ? d : gen_map_full[d]));
 
   // Draw contact lines
   const interactionsList = [];
@@ -252,18 +253,18 @@ function createSchematicPlot(data, containerSelector, options) {
         const xPosition = (coord.sourceX + coord.targetX) / 2;
         const yPosition = (coord.sourceY + coord.targetY) / 2 + 20;
 
-        //Update the tooltip position and value
-        svg.append("text")
-        .attr("id", "tooltip")
-        .attr("x", xPosition)
-        .attr("y", yPosition)
-        .attr("text-anchor", "middle")
-        .attr("font-family", "sans-serif")
-        .attr("font-size", "11px")
-        .attr("font-weight", "bold")
-        .attr("fill", "blue")
-        .text($(this).data('pdbs'));
-
+        // Update the tooltip position and value
+        svg
+          .append('text')
+          .attr('id', 'tooltip')
+          .attr('x', xPosition)
+          .attr('y', yPosition)
+          .attr('text-anchor', 'middle')
+          .attr('font-family', 'sans-serif')
+          .attr('font-size', '11px')
+          .attr('font-weight', 'bold')
+          .attr('fill', 'blue')
+          .text($(this).data('pdbs'));
 
         // TODO use jQuery UI
         // $(this).tooltip({
@@ -276,7 +277,7 @@ function createSchematicPlot(data, containerSelector, options) {
       })
       .on('mouseout', function (d) {
         d3.select(this).classed('highlighted', false);
-        d3.select("#tooltip").remove();
+        d3.select('#tooltip').remove();
       });
   } else {
     svg
@@ -306,67 +307,73 @@ function createSchematicPlot(data, containerSelector, options) {
       );
   }
 
-  // Reposition the helices by minimizing the sum of gradients of contacts
-  segmentList.forEach((segment) => {
-    if (segment !== 'TM1') {
-      let gradientSum = 0;
-      let contactCount = 0;
+  let run = 0;
 
-      $(`path[data-target-segment='${segment}']`).each((i, path) => {
-        const d = path.getAttribute('d');
+  while (run < 10) {
+    // Reposition the helices by minimizing the sum of gradients of contacts
+    segmentList.forEach((segment) => {
+      if (segment !== 'TM1') {
+        let gradientSum = 0;
+        let contactCount = 0;
 
-        const regex = /M (.+) (.+) L (.+) (.+)/;
-        const matches = regex.exec(d);
+        $(`path[data-target-segment='${segment}']`).each((i, path) => {
+          const d = path.getAttribute('d');
 
-        const gradient = (matches[4] - matches[2]) / (matches[3] - matches[1]);
+          const regex = /M (.+) (.+) L (.+) (.+)/;
+          const matches = regex.exec(d);
 
-        gradientSum += gradient;
-        contactCount += 1;
-      });
+          const gradient = (matches[4] - matches[2]) / (matches[3] - matches[1]);
 
-      const gradientMean = gradientSum / contactCount;
-      const shiftY = gradientMean * colSpace;
+          gradientSum += gradient;
+          contactCount += 1;
+        });
 
-      console.log(-gradientMean);
+        const gradientMean = gradientSum / contactCount;
+        const shiftY = gradientMean * colSpace;
 
-      // Reposition each node
-      $(`g.node[data-segment='${segment}'`).each((i, g) => {
-        const transformValue = g.getAttribute('transform');
+        console.log(-gradientMean);
 
-        const regex = /\((.+),(.+)\)/;
-        const matches = regex.exec(transformValue);
+        // Reposition each node
+        $(`g.node[data-segment='${segment}'`).each((i, g) => {
+          const transformValue = g.getAttribute('transform');
 
-        const x = matches[1];
-        const y = matches[2] - shiftY;
+          const regex = /\((.+),(.+)\)/;
+          const matches = regex.exec(transformValue);
 
-        g.setAttribute('transform', `translate(${x},${y})`);
-      });
+          const x = matches[1];
+          const y = matches[2] - shiftY;
 
-      // Reposition the edges TERMINATING at the repositioned nodes
-      $(`path[data-target-segment='${segment}']`).each((i, path) => {
-        const d = path.getAttribute('d');
+          g.setAttribute('transform', `translate(${x},${y})`);
+        });
 
-        const regex = /M (.+) (.+) L (.+) (.+)/;
-        const matches = regex.exec(d);
+        // Reposition the edges TERMINATING at the repositioned nodes
+        $(`path[data-target-segment='${segment}']`).each((i, path) => {
+          const d = path.getAttribute('d');
 
-        const newTargetY = matches[4] - shiftY;
+          const regex = /M (.+) (.+) L (.+) (.+)/;
+          const matches = regex.exec(d);
 
-        path.setAttribute('d', `M ${matches[1]} ${matches[2]} L ${matches[3]} ${newTargetY}`);
-      });
+          const newTargetY = matches[4] - shiftY;
 
-      // Reposition the edges ORIGINATING at the repositioned nodes
-      $(`path[data-source-segment='${segment}']`).each((i, path) => {
-        const d = path.getAttribute('d');
+          path.setAttribute('d', `M ${matches[1]} ${matches[2]} L ${matches[3]} ${newTargetY}`);
+        });
 
-        const regex = /M (.+) (.+) L (.+) (.+)/;
-        const matches = regex.exec(d);
+        // Reposition the edges ORIGINATING at the repositioned nodes
+        $(`path[data-source-segment='${segment}']`).each((i, path) => {
+          const d = path.getAttribute('d');
 
-        const newSourceY = matches[2] - shiftY;
+          const regex = /M (.+) (.+) L (.+) (.+)/;
+          const matches = regex.exec(d);
 
-        path.setAttribute('d', `M ${matches[1]} ${newSourceY} L ${matches[3]} ${matches[4]}`);
-      });
-    }
-  });
+          const newSourceY = matches[2] - shiftY;
+
+          path.setAttribute('d', `M ${matches[1]} ${newSourceY} L ${matches[3]} ${matches[4]}`);
+        });
+      }
+    });
+    console.log('=================');
+    run += 1;
+  }
 
   console.log('^^^^^^^^^^^^^^^^^');
   console.log('Gradient Before');
@@ -448,38 +455,30 @@ function createSchematicPlot(data, containerSelector, options) {
     // Populate schematic legend
     let legendHtml =
       `${'<h4 class="center">Interaction count</h4>' +
-      '<p>From: <span class="min-value">0</span></p>' +
-      '<input class="min-interactions-range" type="range" min="0" max="'}${
+        '<p>From: <span class="min-value">0</span></p>' +
+        '<input class="min-interactions-range" type="range" min="0" max="'}${
         data.pdbs.length
       }" value="0" step="1" />` +
       '<div class="temperature-scale">' +
       '<span class="white-to-red"></span>' +
       '</div>' +
-      `<p>To: <span class="max-value">${
-        data.pdbs.length
-      }</span></p>` +
+      `<p>To: <span class="max-value">${data.pdbs.length}</span></p>` +
       `<input class="max-interactions-range" type="range" min="0" max="${
         data.pdbs.length
-      }" value="${
-        data.pdbs.length
-      }" step="1" />` +
+      }" value="${data.pdbs.length}" step="1" />` +
       '<div class="temperature-scale">' +
       '<span class="white-to-red"></span>' +
       '</div>';
 
     // Add SVG download button
     legendHtml +=
-      `<button onclick="downloadSVG('${
-        containerSelector
-      } .schematic', 'interactions.svg')" type="button" class="btn btn-primary pull-right svg-download-button" aria-label="Left Align">` +
+      `<button onclick="downloadSVG('${containerSelector} .schematic', 'interactions.svg')" type="button" class="btn btn-primary pull-right svg-download-button" aria-label="Left Align">` +
       '<span class="glyphicon glyphicon-download" aria-hidden="true"></span> Download SVG' +
       '</button>';
 
     // Add CSV download button
     legendHtml +=
-      `<br /><button onclick="downloadSingleCrystalGroupCSV('${
-        containerSelector
-      } .schematic', 'interactions.csv')" type="button" class="btn btn-success pull-right csv-download-button" aria-label="Left Align"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Download CSV` +
+      `<br /><button onclick="downloadSingleCrystalGroupCSV('${containerSelector} .schematic', 'interactions.csv')" type="button" class="btn btn-success pull-right csv-download-button" aria-label="Left Align"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Download CSV` +
       '</button>';
 
     $(`${containerSelector} .schematic-legend`).append(legendHtml);
@@ -524,34 +523,23 @@ function createSchematicPlot(data, containerSelector, options) {
     interactionTypes.forEach((i) => {
       const rgb = getInteractionColor(i);
       legendHtml =
-        `${legendHtml
-        }<li>` +
-        `<div class="color-box" style="background-color: ${
-          rgb2hex(rgb.r, rgb.g, rgb.b)
-        }">` +
-        `<input type="checkbox" data-interaction-type="${
-          i.replace(/ /g, '-')
-        }"></input>` +
-        `</div><p>${
-          i
-        }</p>` +
+        `${legendHtml}<li>` +
+        `<div class="color-box" style="background-color: ${rgb2hex(rgb.r, rgb.g, rgb.b)}">` +
+        `<input type="checkbox" data-interaction-type="${i.replace(/ /g, '-')}"></input>` +
+        `</div><p>${i}</p>` +
         '</li>';
     });
     legendHtml += '</ul>';
 
     // Add SVG download button
     legendHtml +=
-      `<button onclick="downloadSVG('${
-        containerSelector
-      }schematic', 'interactions.svg')" type="button" class="btn btn-primary pull-right svg-download-button" aria-label="Left Align">` +
+      `<button onclick="downloadSVG('${containerSelector}schematic', 'interactions.svg')" type="button" class="btn btn-primary pull-right svg-download-button" aria-label="Left Align">` +
       '<span class="glyphicon glyphicon-download" aria-hidden="true"></span> Download SVG' +
       '</button>';
 
     // Add CSV download button
     legendHtml +=
-      `<br /><button onclick="downloadSingleCrystalCSV('${
-        containerSelector
-      }schematic', 'interactions.csv')" type="button" class="btn btn-success pull-right csv-download-button" aria-label="Left Align"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Download CSV` +
+      `<br /><button onclick="downloadSingleCrystalCSV('${containerSelector}schematic', 'interactions.csv')" type="button" class="btn btn-success pull-right csv-download-button" aria-label="Left Align"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Download CSV` +
       '</button>';
 
     $(`${containerSelector} .schematic-legend`).append(legendHtml);
