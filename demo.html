@@ -68,7 +68,9 @@
         // });
 
         d3.json("resources/5-HT.new.json", function (json) {
-            createSchematicPlot(json, ".schematic-container", {type: 'singleCrystalGroup'})
+            createSchematicPlot(json, ".schematic-container", {
+                type: 'singleCrystalGroup'
+            })
         });
     </script>
 
