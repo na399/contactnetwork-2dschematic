@@ -37,19 +37,24 @@ function createSchematicPlot(data, containerSelector, options) {
   const sequence_numbers = data.sequence_numbers;
   const aa_map = data.aa_map[Object.keys(data.aa_map)[0]];
   const gen_map = data.generic_map;
+  const gen_map_full = data.generic_map_full;
   const num_seq_numbers = Object.keys(data.sequence_numbers).length;
 
   // Compute segment offsets
   let i;
 
-  let segments = [];
+  const segments = [];
 
   let seg;
-  let prevSeg = isGeneric ? segment_map_full_gn[sequence_numbers[0]] : segment_map_full[sequence_numbers[0]];
+  let prevSeg = isGeneric
+    ? segment_map_full_gn[sequence_numbers[0]]
+    : segment_map_full[sequence_numbers[0]];
   let seqStart = 0;
 
   for (i = 0; i < num_seq_numbers; i++) {
-    seg = isGeneric ? segment_map_full_gn[sequence_numbers[i]] : segment_map_full[sequence_numbers[i]];
+    seg = isGeneric
+      ? segment_map_full_gn[sequence_numbers[i]]
+      : segment_map_full[sequence_numbers[i]];
 
     if (seg === prevSeg) {
       continue;
@@ -104,12 +109,14 @@ function createSchematicPlot(data, containerSelector, options) {
   };
 
   // Remove whatever chart with the same id/class was present before
-  d3.select(containerSelector)
+  d3
+    .select(containerSelector)
     .select('svg')
     .remove();
 
   // Initiate the SVG
-  let svg = d3.select(containerSelector)
+  const svg = d3
+    .select(containerSelector)
     .append('svg')
     .attr('width', config.w + config.margin.left + config.margin.right)
     .attr('height', config.h + config.margin.top + config.margin.bottom)
@@ -124,7 +131,8 @@ function createSchematicPlot(data, containerSelector, options) {
   const rectWidth = 30;
   const rectHeight = 14;
 
-  let g = svg.selectAll('g')
+  const g = svg
+    .selectAll('g')
     .data(isGeneric ? Object.keys(segment_map_full_gn) : Object.keys(segment_map_full))
     .enter()
     .append('g')
@@ -132,10 +140,10 @@ function createSchematicPlot(data, containerSelector, options) {
     .attr('data-aa', d => d)
     .attr('data-segment', d => (isGeneric ? segment_map_full_gn[d] : segment_map_full[d]))
     .attr('transform', (d, i) => {
-      let col = segmentList.indexOf(isGeneric ? segment_map_full_gn[d] : segment_map_full[d]);
+      const col = segmentList.indexOf(isGeneric ? segment_map_full_gn[d] : segment_map_full[d]);
 
-      let height = rectHeight + 1;
-      let x = colSpace * col;
+      const height = rectHeight + 1;
+      const x = colSpace * col;
 
       if (oldCol !== col) {
         oldI = i - 1;
@@ -145,7 +153,7 @@ function createSchematicPlot(data, containerSelector, options) {
       if (col % 2 === 0) {
         y = (i - oldI) * height;
       } else {
-        y = 700 - ((i - oldI) * height);
+        y = 700 - (i - oldI) * height;
       }
 
       oldCol = col;
@@ -153,31 +161,33 @@ function createSchematicPlot(data, containerSelector, options) {
       return `translate(${x},${y})`;
     });
 
-  g.append('rect')
+  g
+    .append('rect')
     .attr('width', rectWidth)
     .attr('height', rectHeight)
     .style('fill', 'white')
     .style('stroke', 'black');
 
-  g.append('text')
+  g
+    .append('text')
     .attr('x', rectWidth / 2)
     .attr('y', rectHeight - 3)
     .attr('font-size', 10)
     .attr('text-anchor', 'middle')
-    .text(d => d);
+    .text(d => (isGeneric ? d : gen_map_full[d]));
 
   // Draw contact lines
-  let interactionsList = [];
+  const interactionsList = [];
 
   if (isGeneric) {
     Object.keys(interactions).forEach((interaction) => {
-      let pair = separatePair(interaction);
+      const pair = separatePair(interaction);
       if (pair[0] in segment_map_full_gn && pair[1] in segment_map_full_gn) {
         if (isContiguous(segment_map_full_gn[pair[0]], segment_map_full_gn[pair[1]])) {
           getInteractionTypesFromPdbObject(Object.values(interactions[interaction])).forEach((interactionType) => {
-            let d = {
+            const d = {
               pair: interaction,
-              interactionType: interactionType,
+              interactionType,
             };
             interactionsList.push(d);
           });
@@ -186,13 +196,13 @@ function createSchematicPlot(data, containerSelector, options) {
     });
   } else {
     Object.keys(interactions).forEach((interaction) => {
-      let pair = separatePair(interaction);
+      const pair = separatePair(interaction);
       if (pair[0] in segment_map_full && pair[1] in segment_map_full) {
         if (isContiguous(segment_map_full[pair[0]], segment_map_full[pair[1]])) {
           getInteractionTypesFromPdbObject(Object.values(interactions[interaction])).forEach((interactionType) => {
-            let d = {
+            const d = {
               pair: interaction,
-              interactionType: interactionType,
+              interactionType,
             };
             interactionsList.push(d);
           });
@@ -202,56 +212,90 @@ function createSchematicPlot(data, containerSelector, options) {
   }
 
   if (isGeneric) {
-    d3.select('.schematic2d')
+    svg
       .append('g')
       .selectAll('path')
       .data(Object.keys(interactions))
       .enter()
       .append('path')
       .filter((d) => {
-        let pair = separatePair(d);
+        const pair = separatePair(d);
         if (pair[0] in segment_map_full_gn && pair[1] in segment_map_full_gn) {
-          if (isContiguous(segment_map_full_gn[pair[0]], segment_map_full_gn[pair[1]])) { 
+          if (isContiguous(segment_map_full_gn[pair[0]], segment_map_full_gn[pair[1]])) {
             return d;
           }
         }
       })
       .attr('d', (d) => {
-        let coord = getCoordPair(d);
+        const coord = getCoordPair(d);
         return `M ${coord.sourceX} ${coord.sourceY} L ${coord.targetX} ${coord.targetY}`;
       })
       .attr('data-source-segment', d => segment_map_full_gn[separatePair(d)[0]])
       .attr('data-target-segment', d => segment_map_full_gn[separatePair(d)[1]])
-      // .attr('data-interaction-type', d => d.interactionType)
+      .attr('data-pdbs', d => Object.keys(interactions[d]))
       .attr('data-num-interactions', (d) => {
-        let nInteractions = Object.keys(interactions[d]).length;
-        //let frequency = nInteractions / data.pdbs.length;
+        const nInteractions = Object.keys(interactions[d]).length;
         return nInteractions;
       })
-      .style('stroke', 'red')
+      .style('stroke', (d) => {
+        const nInteractions = Object.keys(interactions[d]).length;
+        const frequency = nInteractions / data.pdbs.length;
+        return d3.interpolateReds(frequency / 1.5);
+      })
       .style('stroke-width', '2')
       .style('opacity', '0.6')
-      .attr(
-        'class',
-        d => `edge edge-${d}`,
-      );
+      .attr('class', d => `edge edge-${d}`)
+      .on('mouseover', function (d) {
+        d3.select(this).classed('highlighted', true);
+
+        const coord = getCoordPair(d);
+
+        const xPosition = (coord.sourceX + coord.targetX) / 2;
+        const yPosition = (coord.sourceY + coord.targetY) / 2 + 20;
+
+        // Update the tooltip position and value
+        svg
+          .append('text')
+          .attr('id', 'tooltip')
+          .attr('x', xPosition)
+          .attr('y', yPosition)
+          .attr('text-anchor', 'middle')
+          .attr('font-family', 'sans-serif')
+          .attr('font-size', '11px')
+          .attr('font-weight', 'bold')
+          .attr('fill', 'blue')
+          .text($(this).data('pdbs'));
+
+        // TODO use jQuery UI
+        // $(this).tooltip({
+        //   container: containerSelector,
+        //   placement: 'top',
+        //   delay: 0,
+        //   html: true,
+        //   title: 'demo',
+        // });
+      })
+      .on('mouseout', function (d) {
+        d3.select(this).classed('highlighted', false);
+        d3.select('#tooltip').remove();
+      });
   } else {
-    d3.select('.schematic2d')
+    svg
       .append('g')
       .selectAll('path')
       .data(interactionsList)
       .enter()
       .append('path')
       .attr('d', (d) => {
-        let coord = getCoordPair(d.pair);
+        const coord = getCoordPair(d.pair);
         return `M ${coord.sourceX} ${coord.sourceY} L ${coord.targetX} ${coord.targetY}`;
       })
       .attr('data-source-segment', d => segment_map_full[separatePair(d.pair)[0]])
       .attr('data-target-segment', d => segment_map_full[separatePair(d.pair)[1]])
       .attr('data-interaction-type', d => d.interactionType)
       .style('stroke', (d) => {
-        let rgb = getInteractionColor(d.interactionType);
-        let hex = rgb2hex(rgb.r, rgb.g, rgb.b);
+        const rgb = getInteractionColor(d.interactionType);
+        const hex = rgb2hex(rgb.r, rgb.g, rgb.b);
         return hex;
       })
       .style('stroke-width', '3')
@@ -259,81 +303,77 @@ function createSchematicPlot(data, containerSelector, options) {
       .attr(
         'class',
         d =>
-          `${getFriendlyInteractionName(d.interactionType).replace(
-            / /g,
-            '-',
-          )} edge edge-${d.pair}`,
+          `${getFriendlyInteractionName(d.interactionType).replace(/ /g, '-')} edge edge-${d.pair}`,
       );
   }
 
+  let run = 0;
 
-  // Reposition the helices by minimizing the sum of gradients of contacts
-  segmentList.forEach((segment) => {
-    if (segment !== 'TM1') {
-      let gradientSum = 0;
-      let contactCount = 0;
+  while (run < 10) {
+    // Reposition the helices by minimizing the sum of gradients of contacts
+    segmentList.forEach((segment) => {
+      if (segment !== 'TM1') {
+        let gradientSum = 0;
+        let contactCount = 0;
 
-      $(`path[data-target-segment='${segment}']`).each((i, path) => {
-        let d = path.getAttribute('d');
+        $(`path[data-target-segment='${segment}']`).each((i, path) => {
+          const d = path.getAttribute('d');
 
-        let regex = /M (.+) (.+) L (.+) (.+)/;
-        let matches = regex.exec(d);
+          const regex = /M (.+) (.+) L (.+) (.+)/;
+          const matches = regex.exec(d);
 
-        let gradient = (matches[4] - matches[2]) / (matches[3] - matches[1]);
+          const gradient = (matches[4] - matches[2]) / (matches[3] - matches[1]);
 
-        gradientSum += gradient;
-        contactCount += 1;
-      });
+          gradientSum += gradient;
+          contactCount += 1;
+        });
 
-      let gradientMean = gradientSum / contactCount;
-      let shiftY = gradientMean * colSpace;
+        const gradientMean = gradientSum / contactCount;
+        const shiftY = gradientMean * colSpace;
 
-      console.log(-gradientMean);
+        console.log(-gradientMean);
 
-      // Reposition each node
-      $(`g.node[data-segment='${segment}'`).each((i, g) => {
-        let transformValue = g.getAttribute('transform');
+        // Reposition each node
+        $(`g.node[data-segment='${segment}'`).each((i, g) => {
+          const transformValue = g.getAttribute('transform');
 
-        let regex = /\((.+),(.+)\)/;
-        let matches = regex.exec(transformValue);
+          const regex = /\((.+),(.+)\)/;
+          const matches = regex.exec(transformValue);
 
-        let x = matches[1];
-        let y = matches[2] - shiftY;
+          const x = matches[1];
+          const y = matches[2] - shiftY;
 
-        g.setAttribute('transform', `translate(${x},${y})`);
-      });
+          g.setAttribute('transform', `translate(${x},${y})`);
+        });
 
-      // Reposition the edges TERMINATING at the repositioned nodes
-      $(`path[data-target-segment='${segment}']`).each((i, path) => {
-        let d = path.getAttribute('d');
+        // Reposition the edges TERMINATING at the repositioned nodes
+        $(`path[data-target-segment='${segment}']`).each((i, path) => {
+          const d = path.getAttribute('d');
 
-        let regex = /M (.+) (.+) L (.+) (.+)/;
-        let matches = regex.exec(d);
+          const regex = /M (.+) (.+) L (.+) (.+)/;
+          const matches = regex.exec(d);
 
-        let newTargetY = matches[4] - shiftY;
+          const newTargetY = matches[4] - shiftY;
 
-        path.setAttribute(
-          'd',
-          `M ${matches[1]} ${matches[2]} L ${matches[3]} ${newTargetY}`,
-        );
-      });
+          path.setAttribute('d', `M ${matches[1]} ${matches[2]} L ${matches[3]} ${newTargetY}`);
+        });
 
-      // Reposition the edges ORIGINATING at the repositioned nodes
-      $(`path[data-source-segment='${segment}']`).each((i, path) => {
-        let d = path.getAttribute('d');
+        // Reposition the edges ORIGINATING at the repositioned nodes
+        $(`path[data-source-segment='${segment}']`).each((i, path) => {
+          const d = path.getAttribute('d');
 
-        let regex = /M (.+) (.+) L (.+) (.+)/;
-        let matches = regex.exec(d);
+          const regex = /M (.+) (.+) L (.+) (.+)/;
+          const matches = regex.exec(d);
 
-        let newSourceY = matches[2] - shiftY;
+          const newSourceY = matches[2] - shiftY;
 
-        path.setAttribute(
-          'd',
-          `M ${matches[1]} ${newSourceY} L ${matches[3]} ${matches[4]}`,
-        );
-      });
-    }
-  });
+          path.setAttribute('d', `M ${matches[1]} ${newSourceY} L ${matches[3]} ${matches[4]}`);
+        });
+      }
+    });
+    console.log('=================');
+    run += 1;
+  }
 
   console.log('^^^^^^^^^^^^^^^^^');
   console.log('Gradient Before');
@@ -347,66 +387,64 @@ function createSchematicPlot(data, containerSelector, options) {
       let contactCount = 0;
 
       $(`path[data-target-segment='${segment}']`).each((i, path) => {
-        let d = path.getAttribute('d');
+        const d = path.getAttribute('d');
 
-        let regex = /M (.+) (.+) L (.+) (.+)/;
-        let matches = regex.exec(d);
+        const regex = /M (.+) (.+) L (.+) (.+)/;
+        const matches = regex.exec(d);
 
-        let gradient = (matches[4] - matches[2]) / (matches[3] - matches[1]);
+        const gradient = (matches[4] - matches[2]) / (matches[3] - matches[1]);
 
         gradientSum += gradient;
         contactCount += 1;
       });
 
-      let gradientMean = gradientSum / contactCount;
+      const gradientMean = gradientSum / contactCount;
       console.log(-gradientMean);
     }
   });
 
   function getCoordPair(pair) {
-    let AAs = separatePair(pair);
-    let coordSourceAA = getCoordAA(AAs[0]);
-    let coordTargetAA = getCoordAA(AAs[1]);
+    const AAs = separatePair(pair);
+    const coordSourceAA = getCoordAA(AAs[0]);
+    const coordTargetAA = getCoordAA(AAs[1]);
 
     return {
-      sourceY: parseFloat(coordSourceAA.y) + (rectHeight / 2),
+      sourceY: parseFloat(coordSourceAA.y) + rectHeight / 2,
       sourceX: parseFloat(coordSourceAA.x) + rectWidth,
       targetX: parseFloat(coordTargetAA.x),
-      targetY: parseFloat(coordTargetAA.y) + (rectHeight / 2),
+      targetY: parseFloat(coordTargetAA.y) + rectHeight / 2,
     };
   }
 
   function isContiguous(segment1, segment2) {
-    let regex = /[TMH]+([0-9])/;
+    const regex = /[TMH]+([0-9])/;
 
     if (!regex.exec(segment1) || !regex.exec(segment2)) {
       return false;
-    } else {
-      let segNo1 = regex.exec(segment1)[1];
-      let segNo2 = regex.exec(segment2)[1];
-
-      if (segNo2 - segNo1 === 1) {
-        return true;
-      }
-      return false;
-
     }
+    const segNo1 = regex.exec(segment1)[1];
+    const segNo2 = regex.exec(segment2)[1];
+
+    if (segNo2 - segNo1 === 1) {
+      return true;
+    }
+    return false;
   }
 
   function getCoordAA(aa) {
     translate = d3.select(`.aa-${aa}`).attr('transform');
 
-    let regex = /(-?[0-9]+),(-?[0-9]+)/;
+    const regex = /(-?[0-9]+),(-?[0-9]+)/;
 
-    let matches = regex.exec(translate);
+    const matches = regex.exec(translate);
 
     return { x: matches[1], y: matches[2] };
   }
 
   function separatePair(stringPair) {
-    let regex = /([0-9x]+),([0-9x]+)/;
+    const regex = /([0-9x]+),([0-9x]+)/;
 
-    let matches = regex.exec(stringPair);
+    const matches = regex.exec(stringPair);
 
     return [matches[1], matches[2]];
   }
@@ -415,123 +453,109 @@ function createSchematicPlot(data, containerSelector, options) {
 
   if (isGeneric) {
     // Populate schematic legend
-    var legendHtml = '<h4 class="center">Interaction count</h4>'
-        + '<p>From: <span class="min-value">0</span></p>'
-        + '<input class="min-interactions-range" type="range" min="0" max="' + data.pdbs.length + '" value="0" step="1" />'
-        + '<div class="temperature-scale">'
-        + '<span class="white-to-red"></span>'
-        + '</div>'
-        + '<p>To: <span class="max-value">' + data.pdbs.length + '</span></p>'
-        + '<input class="max-interactions-range" type="range" min="0" max="' + data.pdbs.length + '" value="' + data.pdbs.length + '" step="1" />'
-        + '<div class="temperature-scale">'
-        + '<span class="white-to-red"></span>'
-        + '</div>';
+    let legendHtml =
+      `${'<h4 class="center">Interaction count</h4>' +
+        '<p>From: <span class="min-value">0</span></p>' +
+        '<input class="min-interactions-range" type="range" min="0" max="'}${
+        data.pdbs.length
+      }" value="0" step="1" />` +
+      '<div class="temperature-scale">' +
+      '<span class="white-to-red"></span>' +
+      '</div>' +
+      `<p>To: <span class="max-value">${data.pdbs.length}</span></p>` +
+      `<input class="max-interactions-range" type="range" min="0" max="${
+        data.pdbs.length
+      }" value="${data.pdbs.length}" step="1" />` +
+      '<div class="temperature-scale">' +
+      '<span class="white-to-red"></span>' +
+      '</div>';
 
     // Add SVG download button
-    legendHtml += '<button onclick="downloadSVG(\'' + containerSelector + ' .schematic\', \'interactions.svg\')" type="button" class="btn btn-primary pull-right svg-download-button" aria-label="Left Align">' +
-                    '<span class="glyphicon glyphicon-download" aria-hidden="true"></span> Download SVG' +
-                  '</button>';
-
-    // Add CSV download button
-    legendHtml += '<br /><button onclick="downloadSingleCrystalGroupCSV(\'' + containerSelector + ' .schematic\', \'interactions.csv\')" type="button" class="btn btn-success pull-right csv-download-button" aria-label="Left Align"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Download CSV' +
+    legendHtml +=
+      `<button onclick="downloadSVG('${containerSelector} .schematic', 'interactions.svg')" type="button" class="btn btn-primary pull-right svg-download-button" aria-label="Left Align">` +
+      '<span class="glyphicon glyphicon-download" aria-hidden="true"></span> Download SVG' +
       '</button>';
 
+    // Add CSV download button
+    legendHtml +=
+      `<br /><button onclick="downloadSingleCrystalGroupCSV('${containerSelector} .schematic', 'interactions.csv')" type="button" class="btn btn-success pull-right csv-download-button" aria-label="Left Align"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Download CSV` +
+      '</button>';
 
-    $(containerSelector + ' .schematic-legend').append(legendHtml); 
+    $(`${containerSelector} .schematic-legend`).append(legendHtml);
 
     function getRangeChangeFunction() {
+      return function () {
+        const tMin = $(`${containerSelector} .schematic-legend .min-interactions-range`).val();
+        const tMax = $(`${containerSelector} .schematic-legend .max-interactions-range`).val();
 
-        return function() {
-            var tMin = $(containerSelector + ' .schematic-legend .min-interactions-range').val();
-            var tMax = $(containerSelector + ' .schematic-legend .max-interactions-range').val();
+        $(`${containerSelector} .schematic-legend .min-value`).html(tMin);
+        $(`${containerSelector} .schematic-legend .max-value`).html(tMax);
 
-
-            $(containerSelector + ' .schematic-legend .min-value').html(tMin);
-            $(containerSelector + ' .schematic-legend .max-value').html(tMax);
-
-            // Hide all below min treshold
-            $(containerSelector + ' .edge').each(function() {
-                var n = $(this).data("num-interactions");
-                if (n < tMin || tMax < n) {
-                    $(this).hide();
-                } else {
-                    $(this).show();
-                }
-            });
-        }
+        // Hide all below min treshold
+        $(`${containerSelector} .edge`).each(function () {
+          const n = $(this).data('num-interactions');
+          if (n < tMin || tMax < n) {
+            $(this).hide();
+          } else {
+            $(this).show();
+          }
+        });
+      };
     }
 
-    $(containerSelector + ' .schematic-legend .min-interactions-range').change(getRangeChangeFunction());
+    $(`${containerSelector} .schematic-legend .min-interactions-range`).change(getRangeChangeFunction());
 
-    $(containerSelector + ' .schematic-legend .max-interactions-range').change(getRangeChangeFunction());
-
+    $(`${containerSelector} .schematic-legend .max-interactions-range`).change(getRangeChangeFunction());
   } else {
     // Populatschematic legend
     let interactionTypes = new Set();
 
-    $(containerSelector + ' .edge').each(function () {
-      let friendlyName = getFriendlyInteractionName(
-        $(this).data('interaction-type'),
-      );
+    $(`${containerSelector} .edge`).each(function () {
+      const friendlyName = getFriendlyInteractionName($(this).data('interaction-type'));
       interactionTypes.add(friendlyName);
     });
 
     // Add interactions color legend
     let legendHtml = '<ul>';
 
-    interactionTypes = Array.from(interactionTypes).sort((i1, i2) => {
-      return getInteractionStrength(i2) - getInteractionStrength(i1);
-    });
+    interactionTypes = Array.from(interactionTypes).sort((i1, i2) => getInteractionStrength(i2) - getInteractionStrength(i1));
 
     interactionTypes.forEach((i) => {
-      let rgb = getInteractionColor(i);
+      const rgb = getInteractionColor(i);
       legendHtml =
-        legendHtml +
-        '<li>' +
-        '<div class="color-box" style="background-color: ' +
-        rgb2hex(rgb.r, rgb.g, rgb.b) +
-        '">' +
-        '<input type="checkbox" data-interaction-type="' +
-        i.replace(/ /g, '-') +
-        '"></input>' +
-        '</div><p>' +
-        i +
-        '</p>' +
+        `${legendHtml}<li>` +
+        `<div class="color-box" style="background-color: ${rgb2hex(rgb.r, rgb.g, rgb.b)}">` +
+        `<input type="checkbox" data-interaction-type="${i.replace(/ /g, '-')}"></input>` +
+        `</div><p>${i}</p>` +
         '</li>';
     });
     legendHtml += '</ul>';
 
     // Add SVG download button
     legendHtml +=
-    '<button onclick="downloadSVG(\'' +
-    containerSelector +
-    'schematic\', \'interactions.svg\')" type="button" class="btn btn-primary pull-right svg-download-button" aria-label="Left Align">' +
-    '<span class="glyphicon glyphicon-download" aria-hidden="true"></span> Download SVG' +
-    '</button>';
+      `<button onclick="downloadSVG('${containerSelector}schematic', 'interactions.svg')" type="button" class="btn btn-primary pull-right svg-download-button" aria-label="Left Align">` +
+      '<span class="glyphicon glyphicon-download" aria-hidden="true"></span> Download SVG' +
+      '</button>';
 
-  // Add CSV download button
-  legendHtml +=
-    '<br /><button onclick="downloadSingleCrystalCSV(\'' +
-    containerSelector +
-    'schematic\', \'interactions.csv\')" type="button" class="btn btn-success pull-right csv-download-button" aria-label="Left Align"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Download CSV' +
-    '</button>';
+    // Add CSV download button
+    legendHtml +=
+      `<br /><button onclick="downloadSingleCrystalCSV('${containerSelector}schematic', 'interactions.csv')" type="button" class="btn btn-success pull-right csv-download-button" aria-label="Left Align"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Download CSV` +
+      '</button>';
 
-  $(containerSelector + ' .schematic-legend').append(legendHtml);
+    $(`${containerSelector} .schematic-legend`).append(legendHtml);
 
-  $(containerSelector + ' .schematic-legend input[type=checkbox]').each(
-    function() {
+    $(`${containerSelector} .schematic-legend input[type=checkbox]`).each(function () {
       $(this).prop('checked', true);
-      $(this).change(function() {
-        let interactionType = $(this).data('interaction-type');
-        let paths = $(containerSelector + ' path.' + interactionType);
+      $(this).change(function () {
+        const interactionType = $(this).data('interaction-type');
+        const paths = $(`${containerSelector} path.${interactionType}`);
 
-          if ($(this).is(':checked')) {
-            paths.show();
-          } else {
-            paths.hide();
-          }
-        });
-      },
-    );
+        if ($(this).is(':checked')) {
+          paths.show();
+        } else {
+          paths.hide();
+        }
+      });
+    });
   }
 }

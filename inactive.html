@@ -49,6 +49,7 @@
     <!-- D3.js -->
     <script src="js/d3.min.js"></script>
     <script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery3.js"></script>
@@ -62,8 +63,14 @@
     <script src="js/interactions.js"></script>
     <script src="schematicplot.js"></script>
     <script>
-        d3.json("resources/4AMJ.new.json", function (json) {
-            createSchematicPlot(json, ".schematic-container")
+        // d3.json("resources/4IAQ.new.json", function (json) {
+        //     createSchematicPlot(json, ".schematic-container")
+        // });
+
+        d3.json("resources/inactive.json", function (json) {
+            createSchematicPlot(json, ".schematic-container", {
+                type: 'singleCrystalGroup'
+            })
         });
     </script>
 
@@ -228,6 +235,12 @@
 
         .csv-download-button {
             margin-top: 6px;
+        }
+
+        .highlighted {
+            stroke: #286090 !important;
+            stroke-width: 3 !important;
+            opacity: 1 !important;
         }
     </style>
 
