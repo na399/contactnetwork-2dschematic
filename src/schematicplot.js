@@ -96,18 +96,6 @@ function createSchematicPlot(data, containerSelector, options) {
     // 'C-term',
   ];
 
-  const segmentColors = {
-    1: '#1500D6',
-    2: '#006BDB',
-    3: '#00E1D1',
-    4: '#00E74F',
-    5: '#39ED00',
-    6: '#C9F300',
-    7: '#F99100',
-    8: '#FF0000',
-    0: '#FFFFFF',
-  };
-
   // Remove whatever chart with the same id/class was present before
   d3
     .select(containerSelector)
@@ -432,7 +420,7 @@ function createSchematicPlot(data, containerSelector, options) {
   }
 
   function getCoordAA(aa) {
-    translate = d3.select(`.aa-${aa}`).attr('transform');
+    const translate = d3.select(`.aa-${aa}`).attr('transform');
 
     const regex = /(-?[0-9]+),(-?[0-9]+)/;
 
