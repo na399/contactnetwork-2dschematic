@@ -170,12 +170,12 @@ function getInteractionColor(interaction) {
         case getFriendlyInteractionName('facetoedgeinteraction'):
         case getFriendlyInteractionName('picationinteraction'):
             // r = 253; g = 174; b = 97;
-            r = 55; g = 126; b = 184;
+            r = 77; g = 175; b = 74;
             break;
         case 'hydrophobicinteraction':
         case getFriendlyInteractionName('hydrophobicinteraction'):
             // r = 171; g = 221; b = 164;
-            r = 77; g = 175; b = 74;
+            r = 55; g = 126; b = 184;
             break;
         case 'vanderwaalsinteraction':
         case getFriendlyInteractionName('vanderwaalsinteraction'):
