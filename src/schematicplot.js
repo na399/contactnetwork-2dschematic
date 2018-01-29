@@ -9,6 +9,7 @@ function createSchematicPlot(data, containerSelector, options) {
       left: 20,
     },
     type: 'singleCrystal',
+    isContiguousPlot: true,
   };
 
   // Put all of the options into a variable called config
@@ -46,15 +47,15 @@ function createSchematicPlot(data, containerSelector, options) {
   const segments = [];
 
   let seg;
-  let prevSeg = isGeneric
-    ? segment_map_full_gn[sequence_numbers[0]]
-    : segment_map_full[sequence_numbers[0]];
+  let prevSeg = isGeneric ?
+    segment_map_full_gn[sequence_numbers[0]] :
+    segment_map_full[sequence_numbers[0]];
   let seqStart = 0;
 
   for (i = 0; i < num_seq_numbers; i++) {
-    seg = isGeneric
-      ? segment_map_full_gn[sequence_numbers[i]]
-      : segment_map_full[sequence_numbers[i]];
+    seg = isGeneric ?
+      segment_map_full_gn[sequence_numbers[i]] :
+      segment_map_full[sequence_numbers[i]];
 
     if (seg === prevSeg) {
       continue;
@@ -113,7 +114,7 @@ function createSchematicPlot(data, containerSelector, options) {
   // Draw Reisues
   let oldCol = 0;
   let oldI = 0;
-  const offset = 0;
+
   const colSpace = 120;
 
   const rectWidth = 30;
@@ -131,17 +132,62 @@ function createSchematicPlot(data, containerSelector, options) {
       const col = segmentList.indexOf(isGeneric ? segment_map_full_gn[d] : segment_map_full[d]);
 
       const height = rectHeight + 1;
-      const x = colSpace * col;
 
       if (oldCol !== col) {
         oldI = i - 1;
       }
 
+      let x;
       let y;
-      if (col % 2 === 0) {
-        y = (i - oldI) * height;
+
+      if (config.isContiguousPlot) {
+        x = colSpace * col;
+
+        if (col % 2 === 0) {
+          y = (i - oldI) * height;
+        } else {
+          y = 700 - (i - oldI) * height;
+        }
       } else {
-        y = 700 - (i - oldI) * height;
+        // non-contiguous plot
+        switch (col) {
+          case 0:
+            x = 740;
+            y = config.margin.top + 250 + (i - oldI) * height;
+            break;
+          case 1:
+            x = 620;
+            y = config.h - config.margin.bottom - 400 - (i - oldI) * height;
+            break;
+          case 2:
+            x = 380;
+            y = config.margin.top + (i - oldI) * height;
+            break;
+          case 3:
+            x = 140;
+            y = config.h - config.margin.bottom - 400 - (i - oldI) * height;
+            break;
+          case 4:
+            x = 20;
+            y = config.margin.top + 250 + (i - oldI) * height;
+            break;
+          case 5:
+            x = 260;
+            y = config.h - config.margin.bottom - (i - oldI) * height;
+            break;
+          case 6:
+            x = 500;
+            y = config.margin.top + 350 + (i - oldI) * height;
+            break;
+          case 7:
+            x = 530 + ((i - oldI) * (rectWidth + 1));
+            y = config.h - config.margin.bottom;
+            break;
+          default:
+            x = -100;
+            y = config.h - config.margin.bottom - (i - oldI) * height;
+            break;
+        }
       }
 
       oldCol = col;
@@ -163,6 +209,7 @@ function createSchematicPlot(data, containerSelector, options) {
     .attr('font-size', 10)
     .attr('text-anchor', 'middle')
     .text(d => (isGeneric ? d : gen_map_full[d]));
+  // .text(d => d);
 
   // Draw contact lines
   const interactionsList = [];
@@ -186,7 +233,7 @@ function createSchematicPlot(data, containerSelector, options) {
     Object.keys(interactions).forEach((interaction) => {
       const pair = separatePair(interaction);
       if (pair[0] in segment_map_full && pair[1] in segment_map_full) {
-        if (isContiguous(segment_map_full[pair[0]], segment_map_full[pair[1]])) {
+        if (config.isContiguousPlot ? isContiguous(segment_map_full[pair[0]], segment_map_full[pair[1]]) : isNonContiguous(segment_map_full[pair[0]], segment_map_full[pair[1]])) {
           getInteractionTypesFromPdbObject(Object.values(interactions[interaction])).forEach((interactionType) => {
             const d = {
               pair: interaction,
@@ -291,14 +338,87 @@ function createSchematicPlot(data, containerSelector, options) {
       .attr(
         'class',
         d =>
-          `${getFriendlyInteractionName(d.interactionType).replace(/ /g, '-')} edge edge-${d.pair}`,
+        `${getFriendlyInteractionName(d.interactionType).replace(/ /g, '-')} edge edge-${d.pair}`,
       );
+  }
+
+  function repositionSegment(segment) {
+    if (segment !== 'TM1') {
+      let gradientSum = 0;
+      let contactCount = 0;
+
+      $(`path[data-target-segment='${segment}']`).each((i, path) => {
+        const d = path.getAttribute('d');
+
+        const regex = /M (.+) (.+) L (.+) (.+)/;
+        const matches = regex.exec(d);
+
+        const gradient = (matches[4] - matches[2]) / (matches[3] - matches[1]);
+
+        gradientSum += gradient;
+        contactCount += 1;
+      });
+
+      const gradientMean = gradientSum / contactCount;
+      const shiftY = gradientMean * colSpace;
+
+      console.log(-gradientMean);
+
+      // Reposition each node
+      $(`g.node[data-segment='${segment}'`).each((i, g) => {
+        const transformValue = g.getAttribute('transform');
+
+        const regex = /\((.+),(.+)\)/;
+        const matches = regex.exec(transformValue);
+
+        const x = matches[1];
+        const y = matches[2] - shiftY;
+
+        g.setAttribute('transform', `translate(${x},${y})`);
+      });
+
+      // Reposition the edges TERMINATING at the repositioned nodes
+      $(`path[data-target-segment='${segment}']`).each((i, path) => {
+        const d = path.getAttribute('d');
+
+        const regex = /M (.+) (.+) L (.+) (.+)/;
+        const matches = regex.exec(d);
+
+        const newTargetY = matches[4] - shiftY;
+
+        path.setAttribute('d', `M ${matches[1]} ${matches[2]} L ${matches[3]} ${newTargetY}`);
+      });
+
+      // Reposition the edges ORIGINATING at the repositioned nodes
+      $(`path[data-source-segment='${segment}']`).each((i, path) => {
+        const d = path.getAttribute('d');
+
+        const regex = /M (.+) (.+) L (.+) (.+)/;
+        const matches = regex.exec(d);
+
+        const newSourceY = matches[2] - shiftY;
+
+        path.setAttribute('d', `M ${matches[1]} ${newSourceY} L ${matches[3]} ${matches[4]}`);
+      });
+    }
   }
 
   let run = 0;
 
-  while (run < 10) {
+  while (config.isContiguousPlot && run < 10) {
     // Reposition the helices by minimizing the sum of gradients of contacts
+    segmentList.forEach(s => repositionSegment(s));
+    console.log('=================');
+    run += 1;
+  }
+
+  if (config.isContiguousPlot) {
+    console.log('^^^^^^^^^^^^^^^^^');
+    console.log('Gradient Before');
+    console.log('=================');
+    console.log('Gradient After');
+    console.log('vvvvvvvvvvvvvvvvv');
+
     segmentList.forEach((segment) => {
       if (segment !== 'TM1') {
         let gradientSum = 0;
@@ -317,91 +437,32 @@ function createSchematicPlot(data, containerSelector, options) {
         });
 
         const gradientMean = gradientSum / contactCount;
-        const shiftY = gradientMean * colSpace;
-
         console.log(-gradientMean);
-
-        // Reposition each node
-        $(`g.node[data-segment='${segment}'`).each((i, g) => {
-          const transformValue = g.getAttribute('transform');
-
-          const regex = /\((.+),(.+)\)/;
-          const matches = regex.exec(transformValue);
-
-          const x = matches[1];
-          const y = matches[2] - shiftY;
-
-          g.setAttribute('transform', `translate(${x},${y})`);
-        });
-
-        // Reposition the edges TERMINATING at the repositioned nodes
-        $(`path[data-target-segment='${segment}']`).each((i, path) => {
-          const d = path.getAttribute('d');
-
-          const regex = /M (.+) (.+) L (.+) (.+)/;
-          const matches = regex.exec(d);
-
-          const newTargetY = matches[4] - shiftY;
-
-          path.setAttribute('d', `M ${matches[1]} ${matches[2]} L ${matches[3]} ${newTargetY}`);
-        });
-
-        // Reposition the edges ORIGINATING at the repositioned nodes
-        $(`path[data-source-segment='${segment}']`).each((i, path) => {
-          const d = path.getAttribute('d');
-
-          const regex = /M (.+) (.+) L (.+) (.+)/;
-          const matches = regex.exec(d);
-
-          const newSourceY = matches[2] - shiftY;
-
-          path.setAttribute('d', `M ${matches[1]} ${newSourceY} L ${matches[3]} ${matches[4]}`);
-        });
       }
     });
-    console.log('=================');
-    run += 1;
   }
 
-  console.log('^^^^^^^^^^^^^^^^^');
-  console.log('Gradient Before');
-  console.log('=================');
-  console.log('Gradient After');
-  console.log('vvvvvvvvvvvvvvvvv');
-
-  segmentList.forEach((segment) => {
-    if (segment !== 'TM1') {
-      let gradientSum = 0;
-      let contactCount = 0;
-
-      $(`path[data-target-segment='${segment}']`).each((i, path) => {
-        const d = path.getAttribute('d');
-
-        const regex = /M (.+) (.+) L (.+) (.+)/;
-        const matches = regex.exec(d);
-
-        const gradient = (matches[4] - matches[2]) / (matches[3] - matches[1]);
-
-        gradientSum += gradient;
-        contactCount += 1;
-      });
-
-      const gradientMean = gradientSum / contactCount;
-      console.log(-gradientMean);
-    }
-  });
 
   function getCoordPair(pair) {
     const AAs = separatePair(pair);
     const coordSourceAA = getCoordAA(AAs[0]);
     const coordTargetAA = getCoordAA(AAs[1]);
 
-    return {
-      sourceY: parseFloat(coordSourceAA.y) + rectHeight / 2,
-      sourceX: parseFloat(coordSourceAA.x) + rectWidth,
-      targetX: parseFloat(coordTargetAA.x),
-      targetY: parseFloat(coordTargetAA.y) + rectHeight / 2,
-    };
+    if (config.isContiguousPlot) {
+      return {
+        sourceY: parseFloat(coordSourceAA.y) + rectHeight / 2,
+        sourceX: parseFloat(coordSourceAA.x) + rectWidth,
+        targetX: parseFloat(coordTargetAA.x),
+        targetY: parseFloat(coordTargetAA.y) + rectHeight / 2,
+      };
+    } else {
+      return {
+        sourceY: parseFloat(coordSourceAA.y) + rectHeight / 2,
+        sourceX: parseFloat(coordSourceAA.x),
+        targetX: parseFloat(coordTargetAA.x) + rectWidth,
+        targetY: parseFloat(coordTargetAA.y) + rectHeight / 2,
+      };
+    }
   }
 
   function isContiguous(segment1, segment2) {
@@ -419,6 +480,33 @@ function createSchematicPlot(data, containerSelector, options) {
     return false;
   }
 
+  function isNonContiguous(segment1, segment2) {
+    const regex = /[TMH]+([0-9])/;
+
+    if (!regex.exec(segment1) || !regex.exec(segment2)) {
+      return false;
+    }
+    const segNo1 = regex.exec(segment1)[1];
+    const segNo2 = regex.exec(segment2)[1];
+
+    const nonContiguousPairs = {
+      1: [2, 8],
+      2: [1, 7],
+      3: [6, 7],
+      4: [5],
+      5: [4],
+      6: [3, 4],
+      7: [2, 3, 8],
+      8: [1, 7],
+    };
+
+    if (nonContiguousPairs[segNo1].indexOf(+segNo2) > -1) {
+      return true;
+    }
+
+    return false;
+  }
+
   function getCoordAA(aa) {
     const translate = d3.select(`.aa-${aa}`).attr('transform');
 
@@ -426,7 +514,10 @@ function createSchematicPlot(data, containerSelector, options) {
 
     const matches = regex.exec(translate);
 
-    return { x: matches[1], y: matches[2] };
+    return {
+      x: matches[1],
+      y: matches[2]
+    };
   }
 
   function separatePair(stringPair) {

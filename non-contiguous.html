@@ -33,13 +33,13 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title pull-left">2D Schematic Plot - contiguous</h3>
+                        <h3 class="panel-title pull-left">2D Schematic Plot - non-contiguous</h3>
                         <span class="pull-right glyphicon glyphicon-fullscreen btn-fullscreen"></span>
                         <div class="clearfix"></div>
                     </div>
                     <div class="panel-body">
-                        <div class="schematic-container">
-                            <div class="schematic-legend"></div>
+                        <div class="schematic-container-non-contiguous">
+                            <div class="schematic-legend-non-contiguous"></div>
                         </div>
                     </div>
                 </div>
@@ -64,8 +64,11 @@
     <script src="js/interactions.js"></script>
     <script src="src/schematicplot.js"></script>
     <script>
+        // d3.json("resources/4AMJ.new.json", function (json) {
+        //     createSchematicPlot(json, ".schematic-container")
+        // });
         d3.json("resources/4AMJ.new.json", function (json) {
-            createSchematicPlot(json, ".schematic-container")
+            createSchematicPlot(json, ".schematic-container-non-contiguous", {isContiguousPlot: false})
         });
     </script>
 
