@@ -1,4 +1,4 @@
-function createSchematicPlot(data, containerSelector, options) {
+function createSchematicPlot(data, containerSelector, options, data1, data2) {
   const config = {
     w: 1200, // Width of the circle
     h: 900, // Height of the circle
@@ -8,7 +8,7 @@ function createSchematicPlot(data, containerSelector, options) {
       bottom: 20,
       left: 20,
     },
-    type: 'singleCrystal',
+    type: 'singleCrystal', // ['singleCrystal', 'singleCrystalGroup', 'twoCrystalGroups']
     isContiguousPlot: true,
   };
 
@@ -47,15 +47,15 @@ function createSchematicPlot(data, containerSelector, options) {
   const segments = [];
 
   let seg;
-  let prevSeg = isGeneric ?
-    segment_map_full_gn[sequence_numbers[0]] :
-    segment_map_full[sequence_numbers[0]];
+  let prevSeg = isGeneric
+    ? segment_map_full_gn[sequence_numbers[0]]
+    : segment_map_full[sequence_numbers[0]];
   let seqStart = 0;
 
   for (i = 0; i < num_seq_numbers; i++) {
-    seg = isGeneric ?
-      segment_map_full_gn[sequence_numbers[i]] :
-      segment_map_full[sequence_numbers[i]];
+    seg = isGeneric
+      ? segment_map_full_gn[sequence_numbers[i]]
+      : segment_map_full[sequence_numbers[i]];
 
     if (seg === prevSeg) {
       continue;
@@ -180,7 +180,7 @@ function createSchematicPlot(data, containerSelector, options) {
             y = config.margin.top + 350 + (i - oldI) * height;
             break;
           case 7:
-            x = 530 + ((i - oldI) * (rectWidth + 1));
+            x = 530 + (i - oldI) * (rectWidth + 1);
             y = config.h - config.margin.bottom;
             break;
           default:
@@ -214,7 +214,27 @@ function createSchematicPlot(data, containerSelector, options) {
   // Draw contact lines
   const interactionsList = [];
 
-  if (isGeneric) {
+  switch (config.type) {
+    case 'singleCrystal':
+      getInteractionsSingleCrystal();
+      renderSchematicSingleCrystal();
+      createLegendSingleCrystal();
+      break;
+    case 'singleCrystalGroup':
+      getInteractionsCrystalGroup();
+      renderSchematicSingleCrystalGroup();
+      createLegendSingleCrystalGroup();
+      break;
+    case 'twoCrystalGroups':
+      getInteractionsCrystalGroup();
+      renderSchematicTwoCrystalGroups();
+      createLegendTwoCrystalGroups();
+      break;
+    default:
+      break;
+  }
+
+  function getInteractionsSingleCrystal() {
     Object.keys(interactions).forEach((interaction) => {
       const pair = separatePair(interaction);
       if (pair[0] in segment_map_full_gn && pair[1] in segment_map_full_gn) {
@@ -229,11 +249,17 @@ function createSchematicPlot(data, containerSelector, options) {
         }
       }
     });
-  } else {
+  }
+
+  function getInteractionsCrystalGroup() {
     Object.keys(interactions).forEach((interaction) => {
       const pair = separatePair(interaction);
       if (pair[0] in segment_map_full && pair[1] in segment_map_full) {
-        if (config.isContiguousPlot ? isContiguous(segment_map_full[pair[0]], segment_map_full[pair[1]]) : isNonContiguous(segment_map_full[pair[0]], segment_map_full[pair[1]])) {
+        if (
+          config.isContiguousPlot
+            ? isContiguous(segment_map_full[pair[0]], segment_map_full[pair[1]])
+            : isNonContiguous(segment_map_full[pair[0]], segment_map_full[pair[1]])
+        ) {
           getInteractionTypesFromPdbObject(Object.values(interactions[interaction])).forEach((interactionType) => {
             const d = {
               pair: interaction,
@@ -246,7 +272,35 @@ function createSchematicPlot(data, containerSelector, options) {
     });
   }
 
-  if (isGeneric) {
+  function renderSchematicSingleCrystal() {
+    svg
+      .append('g')
+      .selectAll('path')
+      .data(interactionsList)
+      .enter()
+      .append('path')
+      .attr('d', (d) => {
+        const coord = getCoordPair(d.pair);
+        return `M ${coord.sourceX} ${coord.sourceY} L ${coord.targetX} ${coord.targetY}`;
+      })
+      .attr('data-source-segment', d => segment_map_full[separatePair(d.pair)[0]])
+      .attr('data-target-segment', d => segment_map_full[separatePair(d.pair)[1]])
+      .attr('data-interaction-type', d => d.interactionType)
+      .style('stroke', (d) => {
+        const rgb = getInteractionColor(d.interactionType);
+        const hex = rgb2hex(rgb.r, rgb.g, rgb.b);
+        return hex;
+      })
+      .style('stroke-width', '3')
+      .style('opacity', '0.6')
+      .attr(
+        'class',
+        d =>
+          `${getFriendlyInteractionName(d.interactionType).replace(/ /g, '-')} edge edge-${d.pair}`,
+      );
+  }
+
+  function renderSchematicSingleCrystalGroup() {
     svg
       .append('g')
       .selectAll('path')
@@ -314,32 +368,122 @@ function createSchematicPlot(data, containerSelector, options) {
         d3.select(this).classed('highlighted', false);
         d3.select('#tooltip').remove();
       });
-  } else {
+  }
+
+  function renderSchematicTwoCrystalGroups() {
     svg
       .append('g')
       .selectAll('path')
-      .data(interactionsList)
+      .data(Object.keys(interactions))
       .enter()
       .append('path')
+      .filter((d) => {
+        const pair = separatePair(d);
+        if (pair[0] in segment_map_full_gn && pair[1] in segment_map_full_gn) {
+          if (isContiguous(segment_map_full_gn[pair[0]], segment_map_full_gn[pair[1]])) {
+            return d;
+          }
+        }
+      })
+      .attr('class', d => `edge edge-${d}`)
       .attr('d', (d) => {
-        const coord = getCoordPair(d.pair);
+        const coord = getCoordPair(d);
         return `M ${coord.sourceX} ${coord.sourceY} L ${coord.targetX} ${coord.targetY}`;
       })
-      .attr('data-source-segment', d => segment_map_full[separatePair(d.pair)[0]])
-      .attr('data-target-segment', d => segment_map_full[separatePair(d.pair)[1]])
-      .attr('data-interaction-type', d => d.interactionType)
-      .style('stroke', (d) => {
-        const rgb = getInteractionColor(d.interactionType);
-        const hex = rgb2hex(rgb.r, rgb.g, rgb.b);
-        return hex;
+      .attr('data-source-segment', d => segment_map_full_gn[separatePair(d)[0]])
+      .attr('data-target-segment', d => segment_map_full_gn[separatePair(d)[1]])
+      .attr('data-pdbs', d => Object.keys(interactions[d]))
+      .attrs((d) => {
+        let n1 = 0;
+        let n2 = 0;
+
+        if (d in data1.interactions) {
+          n1 = Object.keys(data1.interactions[d]).length;
+        }
+
+        if (d in data2.interactions) {
+          n2 = Object.keys(data2.interactions[d]).length;
+        }
+
+        if (d in data1.interactions || d in data2.interactions) {
+          const f1 = n1 / data1.pdbs.length;
+          const f2 = n2 / data2.pdbs.length;
+          const fDiff = n1 / data1.pdbs.length - n2 / data2.pdbs.length;
+
+          return {
+            'data-frequency-diff': fDiff,
+            'data-group-1-num-ints': n1,
+            'data-group-2-num-ints': n2,
+            'data-group-1-num-pdbs': data1.pdbs.length,
+            'data-group-2-num-pdbs': data2.pdbs.length,
+            'data-group-1-freq': f1.toFixed(2),
+            'data-group-2-freq': f2.toFixed(2),
+          };
+        }
       })
-      .style('stroke-width', '3')
-      .style('opacity', '0.6')
-      .attr(
-        'class',
-        d =>
-        `${getFriendlyInteractionName(d.interactionType).replace(/ /g, '-')} edge edge-${d.pair}`,
-      );
+      .style('stroke', (d) => {
+        let n1 = 0;
+        let n2 = 0;
+
+        if (d in data1.interactions) {
+          n1 = Object.keys(data1.interactions[d]).length;
+        }
+
+        if (d in data2.interactions) {
+          n2 = Object.keys(data2.interactions[d]).length;
+        }
+
+        if (d in data1.interactions || d in data2.interactions) {
+          const f1 = n1 / data1.pdbs.length;
+          const f2 = n2 / data2.pdbs.length;
+          const fDiff = n1 / data1.pdbs.length - n2 / data2.pdbs.length;
+          let rgb;
+
+          if (fDiff <= 0) {
+            // If fDiff is close to -1, we want a red color
+            rgb = { r: 255, g: 255 - 255 * -fDiff, b: 255 - 255 * -fDiff };
+          } else {
+            // If fDiff is close to 1 we want a blue color
+            rgb = { r: 255 - 255 * fDiff, g: 255 - 255 * fDiff, b: 255 };
+          }
+          return `rgb(${[rgb.r, rgb.g, rgb.b].join(',')})`;
+        }
+      })
+      .style('stroke-width', '2')
+      .on('mouseover', function (d) {
+        d3.select(this).classed('highlighted', true);
+
+        const coord = getCoordPair(d);
+
+        const xPosition = (coord.sourceX + coord.targetX) / 2;
+        const yPosition = (coord.sourceY + coord.targetY) / 2 + 20;
+
+        // Update the tooltip position and value
+        svg
+          .append('text')
+          .attr('id', 'tooltip')
+          .attr('x', xPosition)
+          .attr('y', yPosition)
+          .attr('text-anchor', 'middle')
+          .attr('font-family', 'sans-serif')
+          .attr('font-size', '11px')
+          .attr('font-weight', 'bold')
+          .attr('fill', 'blue')
+          .text($(this).data('pdbs'));
+
+        // TODO use jQuery UI
+        // $(this).tooltip({
+        //   container: containerSelector,
+        //   placement: 'top',
+        //   delay: 0,
+        //   html: true,
+        //   title: 'demo',
+        // });
+      })
+      .on('mouseout', function (d) {
+        d3.select(this).classed('highlighted', false);
+        d3.select('#tooltip').remove();
+      });
   }
 
   function repositionSegment(segment) {
@@ -362,7 +506,7 @@ function createSchematicPlot(data, containerSelector, options) {
       const gradientMean = gradientSum / contactCount;
       const shiftY = gradientMean * colSpace;
 
-      console.log(-gradientMean);
+      // console.log(-gradientMean);
 
       // Reposition each node
       $(`g.node[data-segment='${segment}'`).each((i, g) => {
@@ -408,40 +552,39 @@ function createSchematicPlot(data, containerSelector, options) {
   while (config.isContiguousPlot && run < 10) {
     // Reposition the helices by minimizing the sum of gradients of contacts
     segmentList.forEach(s => repositionSegment(s));
-    console.log('=================');
+    // console.log('=================');
     run += 1;
   }
 
-  if (config.isContiguousPlot) {
-    console.log('^^^^^^^^^^^^^^^^^');
-    console.log('Gradient Before');
-    console.log('=================');
-    console.log('Gradient After');
-    console.log('vvvvvvvvvvvvvvvvv');
+  // if (config.isContiguousPlot) {
+  //   console.log('^^^^^^^^^^^^^^^^^');
+  //   console.log('Gradient Before');
+  //   console.log('=================');
+  //   console.log('Gradient After');
+  //   console.log('vvvvvvvvvvvvvvvvv');
 
-    segmentList.forEach((segment) => {
-      if (segment !== 'TM1') {
-        let gradientSum = 0;
-        let contactCount = 0;
+  //   segmentList.forEach((segment) => {
+  //     if (segment !== 'TM1') {
+  //       let gradientSum = 0;
+  //       let contactCount = 0;
 
-        $(`path[data-target-segment='${segment}']`).each((i, path) => {
-          const d = path.getAttribute('d');
+  //       $(`path[data-target-segment='${segment}']`).each((i, path) => {
+  //         const d = path.getAttribute('d');
 
-          const regex = /M (.+) (.+) L (.+) (.+)/;
-          const matches = regex.exec(d);
+  //         const regex = /M (.+) (.+) L (.+) (.+)/;
+  //         const matches = regex.exec(d);
 
-          const gradient = (matches[4] - matches[2]) / (matches[3] - matches[1]);
+  //         const gradient = (matches[4] - matches[2]) / (matches[3] - matches[1]);
 
-          gradientSum += gradient;
-          contactCount += 1;
-        });
+  //         gradientSum += gradient;
+  //         contactCount += 1;
+  //       });
 
-        const gradientMean = gradientSum / contactCount;
-        console.log(-gradientMean);
-      }
-    });
-  }
-
+  //       const gradientMean = gradientSum / contactCount;
+  //       console.log(-gradientMean);
+  //     }
+  //   });
+  // }
 
   function getCoordPair(pair) {
     const AAs = separatePair(pair);
@@ -455,14 +598,13 @@ function createSchematicPlot(data, containerSelector, options) {
         targetX: parseFloat(coordTargetAA.x),
         targetY: parseFloat(coordTargetAA.y) + rectHeight / 2,
       };
-    } else {
-      return {
-        sourceY: parseFloat(coordSourceAA.y) + rectHeight / 2,
-        sourceX: parseFloat(coordSourceAA.x),
-        targetX: parseFloat(coordTargetAA.x) + rectWidth,
-        targetY: parseFloat(coordTargetAA.y) + rectHeight / 2,
-      };
     }
+    return {
+      sourceY: parseFloat(coordSourceAA.y) + rectHeight / 2,
+      sourceX: parseFloat(coordSourceAA.x),
+      targetX: parseFloat(coordTargetAA.x) + rectWidth,
+      targetY: parseFloat(coordTargetAA.y) + rectHeight / 2,
+    };
   }
 
   function isContiguous(segment1, segment2) {
@@ -516,7 +658,7 @@ function createSchematicPlot(data, containerSelector, options) {
 
     return {
       x: matches[1],
-      y: matches[2]
+      y: matches[2],
     };
   }
 
@@ -528,9 +670,59 @@ function createSchematicPlot(data, containerSelector, options) {
     return [matches[1], matches[2]];
   }
 
-  // Create Legend
+  function createLegendSingleCrystal() {
+    let interactionTypes = new Set();
 
-  if (isGeneric) {
+    $(`${containerSelector} .edge`).each(function () {
+      const friendlyName = getFriendlyInteractionName($(this).data('interaction-type'));
+      interactionTypes.add(friendlyName);
+    });
+
+    // Add interactions color legend
+    let legendHtml = '<ul>';
+
+    interactionTypes = Array.from(interactionTypes).sort((i1, i2) => getInteractionStrength(i2) - getInteractionStrength(i1));
+
+    interactionTypes.forEach((i) => {
+      const rgb = getInteractionColor(i);
+      legendHtml =
+        `${legendHtml}<li>` +
+        `<div class="color-box" style="background-color: ${rgb2hex(rgb.r, rgb.g, rgb.b)}">` +
+        `<input type="checkbox" data-interaction-type="${i.replace(/ /g, '-')}"></input>` +
+        `</div><p>${i}</p>` +
+        '</li>';
+    });
+    legendHtml += '</ul>';
+
+    // Add SVG download button
+    legendHtml +=
+      `<button onclick="downloadSVG('${containerSelector}schematic', 'interactions.svg')" type="button" class="btn btn-primary pull-right svg-download-button" aria-label="Left Align">` +
+      '<span class="glyphicon glyphicon-download" aria-hidden="true"></span> Download SVG' +
+      '</button>';
+
+    // Add CSV download button
+    legendHtml +=
+      `<br /><button onclick="downloadSingleCrystalCSV('${containerSelector}schematic', 'interactions.csv')" type="button" class="btn btn-success pull-right csv-download-button" aria-label="Left Align"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Download CSV` +
+      '</button>';
+
+    $(`${containerSelector} .schematic-legend`).append(legendHtml);
+
+    $(`${containerSelector} .schematic-legend input[type=checkbox]`).each(function () {
+      $(this).prop('checked', true);
+      $(this).change(function () {
+        const interactionType = $(this).data('interaction-type');
+        const paths = $(`${containerSelector} path.${interactionType}`);
+
+        if ($(this).is(':checked')) {
+          paths.show();
+        } else {
+          paths.hide();
+        }
+      });
+    });
+  }
+
+  function createLegendSingleCrystalGroup() {
     // Populate schematic legend
     let legendHtml =
       `${'<h4 class="center">Interaction count</h4>' +
@@ -585,56 +777,60 @@ function createSchematicPlot(data, containerSelector, options) {
     $(`${containerSelector} .schematic-legend .min-interactions-range`).change(getRangeChangeFunction());
 
     $(`${containerSelector} .schematic-legend .max-interactions-range`).change(getRangeChangeFunction());
-  } else {
-    // Populatschematic legend
-    let interactionTypes = new Set();
+  }
 
-    $(`${containerSelector} .edge`).each(function () {
-      const friendlyName = getFriendlyInteractionName($(this).data('interaction-type'));
-      interactionTypes.add(friendlyName);
-    });
-
-    // Add interactions color legend
-    let legendHtml = '<ul>';
-
-    interactionTypes = Array.from(interactionTypes).sort((i1, i2) => getInteractionStrength(i2) - getInteractionStrength(i1));
-
-    interactionTypes.forEach((i) => {
-      const rgb = getInteractionColor(i);
-      legendHtml =
-        `${legendHtml}<li>` +
-        `<div class="color-box" style="background-color: ${rgb2hex(rgb.r, rgb.g, rgb.b)}">` +
-        `<input type="checkbox" data-interaction-type="${i.replace(/ /g, '-')}"></input>` +
-        `</div><p>${i}</p>` +
-        '</li>';
-    });
-    legendHtml += '</ul>';
+  function createLegendTwoCrystalGroups() {
+    // Populate heatmap legend
+    let legendHtml =
+      '<h4 class="center">Frequency</h4>' +
+      '<p>From: <span class="min-value">-1</span></p>' +
+      '<input class="min-interactions-range" type="range" min="-1" max="1" value="-1" step="0.01" />' +
+      '<div class="temperature-scale">' +
+      '<span class="red-to-white"></span>' +
+      '<span class="white-to-blue"></span>' +
+      '</div>' +
+      '<p>To: <span class="max-value">1</span></p>' +
+      '<input class="max-interactions-range" type="range" min="-1" max="1" value="1" step="0.01" />' +
+      '<div class="temperature-scale">' +
+      '<span class="red-to-white"></span>' +
+      '<span class="white-to-blue"></span>' +
+      '</div>';
 
     // Add SVG download button
     legendHtml +=
-      `<button onclick="downloadSVG('${containerSelector}schematic', 'interactions.svg')" type="button" class="btn btn-primary pull-right svg-download-button" aria-label="Left Align">` +
+      `<button onclick="downloadSVG('${containerSelector} .schematic', 'interactions.svg')" type="button" class="btn btn-primary pull-right svg-download-button" aria-label="Left Align">` +
       '<span class="glyphicon glyphicon-download" aria-hidden="true"></span> Download SVG' +
       '</button>';
 
     // Add CSV download button
     legendHtml +=
-      `<br /><button onclick="downloadSingleCrystalCSV('${containerSelector}schematic', 'interactions.csv')" type="button" class="btn btn-success pull-right csv-download-button" aria-label="Left Align"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Download CSV` +
+      `<br /><button onclick="downloadTwoCrystalGroupsCSV('${containerSelector} .schematic', 'interactions.csv')" type="button" class="btn btn-success pull-right csv-download-button" aria-label="Left Align"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Download CSV` +
       '</button>';
 
     $(`${containerSelector} .schematic-legend`).append(legendHtml);
 
-    $(`${containerSelector} .schematic-legend input[type=checkbox]`).each(function () {
-      $(this).prop('checked', true);
-      $(this).change(function () {
-        const interactionType = $(this).data('interaction-type');
-        const paths = $(`${containerSelector} path.${interactionType}`);
+    function getRangeChangeFunction() {
+      return function () {
+        const tMin = $(`${containerSelector} .schematic-legend .min-interactions-range`).val();
+        const tMax = $(`${containerSelector} .schematic-legend .max-interactions-range`).val();
 
-        if ($(this).is(':checked')) {
-          paths.show();
-        } else {
-          paths.hide();
-        }
-      });
-    });
+        $(`${containerSelector} .schematic-legend .min-value`).html(tMin);
+        $(`${containerSelector} .schematic-legend .max-value`).html(tMax);
+
+        // Hide all below min treshold
+        $(`${containerSelector} .edge`).each(function () {
+          const f = $(this).data('frequency-diff');
+          if (f <= tMin || tMax <= f) {
+            $(this).hide();
+          } else {
+            $(this).show();
+          }
+        });
+      };
+    }
+
+    $(`${containerSelector} .schematic-legend .min-interactions-range`).change(getRangeChangeFunction());
+
+    $(`${containerSelector} .schematic-legend .max-interactions-range`).change(getRangeChangeFunction());
   }
 }
