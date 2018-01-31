@@ -211,22 +211,18 @@ function createSchematicPlot(data, containerSelector, options, data1, data2) {
     .text(d => (isGeneric ? d : gen_map_full[d]));
   // .text(d => d);
 
-  // Draw contact lines
-  const interactionsList = [];
-
   switch (config.type) {
     case 'singleCrystal':
-      getInteractionsSingleCrystal();
-      renderSchematicSingleCrystal();
+      renderSchematicSingleCrystal(getInteractionsSingleCrystal());
       createLegendSingleCrystal();
       break;
     case 'singleCrystalGroup':
-      getInteractionsCrystalGroup();
+      // getInteractionsCrystalGroup();
       renderSchematicSingleCrystalGroup();
       createLegendSingleCrystalGroup();
       break;
     case 'twoCrystalGroups':
-      getInteractionsCrystalGroup();
+      // getInteractionsCrystalGroup();
       renderSchematicTwoCrystalGroups();
       createLegendTwoCrystalGroups();
       break;
@@ -235,23 +231,7 @@ function createSchematicPlot(data, containerSelector, options, data1, data2) {
   }
 
   function getInteractionsSingleCrystal() {
-    Object.keys(interactions).forEach((interaction) => {
-      const pair = separatePair(interaction);
-      if (pair[0] in segment_map_full_gn && pair[1] in segment_map_full_gn) {
-        if (isContiguous(segment_map_full_gn[pair[0]], segment_map_full_gn[pair[1]])) {
-          getInteractionTypesFromPdbObject(Object.values(interactions[interaction])).forEach((interactionType) => {
-            const d = {
-              pair: interaction,
-              interactionType,
-            };
-            interactionsList.push(d);
-          });
-        }
-      }
-    });
-  }
-
-  function getInteractionsCrystalGroup() {
+    const interactionsList = [];
     Object.keys(interactions).forEach((interaction) => {
       const pair = separatePair(interaction);
       if (pair[0] in segment_map_full && pair[1] in segment_map_full) {
@@ -270,9 +250,29 @@ function createSchematicPlot(data, containerSelector, options, data1, data2) {
         }
       }
     });
+    return interactionsList;
   }
 
-  function renderSchematicSingleCrystal() {
+  function getInteractionsCrystalGroup() {
+    const interactionsList = [];
+    Object.keys(interactions).forEach((interaction) => {
+      const pair = separatePair(interaction);
+      if (pair[0] in segment_map_full_gn && pair[1] in segment_map_full_gn) {
+        if (isContiguous(segment_map_full_gn[pair[0]], segment_map_full_gn[pair[1]])) {
+          getInteractionTypesFromPdbObject(Object.values(interactions[interaction])).forEach((interactionType) => {
+            const d = {
+              pair: interaction,
+              interactionType,
+            };
+            interactionsList.push(d);
+          });
+        }
+      }
+    });
+    return interactionsList;
+  }
+
+  function renderSchematicSingleCrystal(interactionsList) {
     svg
       .append('g')
       .selectAll('path')
