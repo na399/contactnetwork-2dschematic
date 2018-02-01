@@ -1,6 +1,6 @@
 function createSchematicPlot(data, containerSelector, options, data1, data2) {
   const config = {
-    w: 1200, // Width of the circle
+    w: 1000, // Width of the circle
     h: 900, // Height of the circle
     margin: {
       top: 20,
@@ -223,6 +223,7 @@ function createSchematicPlot(data, containerSelector, options, data1, data2) {
       break;
     case 'twoCrystalGroups':
       // getInteractionsCrystalGroup();
+      svg.style('background-color', '#f0f0f0');
       renderSchematicTwoCrystalGroups();
       createLegendTwoCrystalGroups();
       break;
