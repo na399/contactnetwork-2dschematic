@@ -633,14 +633,14 @@ function createSchematicPlot(data, containerSelector, options, data1, data2) {
     const segNo2 = regex.exec(segment2)[1];
 
     const nonContiguousPairs = {
-      1: [2, 8],
-      2: [1, 7],
-      3: [6, 7],
-      4: [5],
-      5: [4],
-      6: [3, 4],
-      7: [2, 3, 8],
-      8: [1, 7],
+      1: [3, 4, 5, 6, 7, 8],
+      2: [4, 5, 6, 7, 8],
+      3: [1, 5, 6, 7, 8],
+      4: [1, 2, 6, 7, 8],
+      5: [1, 2, 3, 7, 8],
+      6: [1, 2, 3, 4, 8],
+      7: [1, 2, 3, 4, 5],
+      8: [1, 2, 3, 4, 5, 6],
     };
 
     if (nonContiguousPairs[segNo1].indexOf(+segNo2) > -1) {
